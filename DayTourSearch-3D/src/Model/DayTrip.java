@@ -5,6 +5,7 @@ import java.time.LocalTime;
 
 public class DayTrip {
     private final int dayTripId;
+    private String title;
     private int price;
     private int duration;
     private LocalDate date;
@@ -16,8 +17,9 @@ public class DayTrip {
     private String description;
     private LocalDate dateAdded;
 
-    public DayTrip(int dayTripId, int price, int duration, LocalDate date, LocalTime startTime, int availableSeats, String language, char location, String activity) {
+    public DayTrip(int dayTripId, String title, int price, int duration, LocalDate date, LocalTime startTime, int availableSeats, String language, char location, String activity) {
         this.dayTripId = dayTripId;
+        this.title = title;
         this.price = price;
         this.duration = duration;
         this.date = date;
@@ -31,6 +33,14 @@ public class DayTrip {
 
     public int getDayTripId() {
         return dayTripId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public int getPrice() {
