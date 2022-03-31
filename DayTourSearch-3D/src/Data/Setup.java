@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 public class Setup {
     private static final String SQL_PATH = "DayTourSearch-3D/src/Data" + File.separator + "schema.sql";
-    private static final String DB_PATH = "DayTourSearch-3D/src/Data" + File.separator + "dayTrips.db";
+    private static final String DB_PATH = "DayTourSearch-3D/src/Data" + File.separator + "dataBases.db";
 
     /**
      * Helper function that creates a database file if it does not yet exist.
