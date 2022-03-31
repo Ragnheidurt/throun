@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class DayTrip {
-    private int dayTripId;
+    private final int dayTripId;
     private int price;
     private int duration;
     private LocalDate date;
@@ -31,10 +31,6 @@ public class DayTrip {
 
     public int getDayTripId() {
         return dayTripId;
-    }
-
-    public void setDayTripId(int dayTripId) {
-        this.dayTripId = dayTripId;
     }
 
     public int getPrice() {
