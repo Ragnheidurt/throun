@@ -1,8 +1,8 @@
 package Model;
 
 public class Booking {
-    private int customerId;
-    private int dayTripId;
+    private final int customerId;
+    private final int dayTripId;
     private int numberOfGuests;
 
     public Booking(int customerId, int dayTripId, int numberOfGuests) {
@@ -15,16 +15,8 @@ public class Booking {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
     public int getDayTripId() {
         return dayTripId;
-    }
-
-    public void setDayTripId(int dayTripId) {
-        this.dayTripId = dayTripId;
     }
 
     public int getNumberOfGuests() {

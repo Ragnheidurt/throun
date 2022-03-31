@@ -3,8 +3,8 @@ package Model;
 public class Review {
     private int rating;
     private String review;
-    private int customerId;
-    private int dayTripId;
+    private final int customerId;
+    private final int dayTripId;
 
     public Review(int rating, String review, int customerId, int dayTripId) {
         this.rating = rating;
@@ -33,15 +33,8 @@ public class Review {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
     public int getDayTripId() {
         return dayTripId;
     }
 
-    public void setDayTripId(int dayTripId) {
-        this.dayTripId = dayTripId;
-    }
 }
