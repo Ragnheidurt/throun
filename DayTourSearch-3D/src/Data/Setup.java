@@ -14,6 +14,7 @@ import java.util.Scanner;
  * @author: Einar Jónsson, Eydís Sylvía Einarsdóttir, Jaan Jaerving, Snorri
  * Steinn Stefánsson Thors
  */
+//Myes lads
 public class Setup {
     private static final String SQL_PATH = "DayTourSearch-3D/src/Data" + File.separator + "schema.sql";
     private static final String DB_PATH = "DayTourSearch-3D/src/Data" + File.separator + "dataBases.db";
