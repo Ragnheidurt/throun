@@ -45,13 +45,13 @@
                   <ComboBox fx:id="fxLanguage" prefWidth="115.0" />
                </children>
             </HBox>
-            <Button fx:id="fxSearch" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Search trips" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#searchHandler" prefHeight="30.0" prefWidth="80.0" text="Search trips" />
             <Line endX="100.0" startX="-95.0000228881836">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Line>
-            <Button fx:id="fxMyTrips" maxWidth="80.0" mnemonicParsing="false" prefHeight="30.0" text="My trips">
+            <Button maxWidth="80.0" mnemonicParsing="false" onAction="#myTripsHandler" prefHeight="30.0" text="My trips">
                <VBox.margin>
                   <Insets top="50.0" />
                </VBox.margin>
@@ -76,8 +76,8 @@
             </TableView>
             <HBox alignment="CENTER" prefHeight="73.0" prefWidth="353.0" spacing="50.0">
                <children>
-                  <Button fx:id="fxBookTrip" alignment="CENTER" mnemonicParsing="false" onAction="#tripInfoHandler" prefHeight="30.0" text="Book trip" />
-                  <Button fx:id="fxTripInfo" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" text="More about this trip" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#bookTripHandler" prefHeight="30.0" text="Book trip" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#tripInfoHandler" prefHeight="30.0" text="More about this trip" />
                </children>
             </HBox>
          </children>

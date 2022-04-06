@@ -102,16 +102,54 @@ public class DayTripController implements Initializable {
 
     }
 
+
     @FXML
     private void tripInfoHandler(ActionEvent event) throws IOException {
-        System.out.println("Hér");
+        // Get the day trip that is selected and create a new DayTripInfo object for this trip
+        DayTrip trip = fxTable.getSelectionModel().getSelectedItem();   // kannski betra að nota id???
+        //DayTripInfoController info = new DayTripInfoController(trip);
+
+
+
+
+
+        // KANNSKI BETRA AÐ HAFA DIALOG HELDUR EN ALVEG NÝJA SENU??
+        // ÞURFUM AMK AÐ GETA KOMIST TIL BAKA AFTUR Í DAYTRIPSEARCHVIEW.FXML
+
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getClassLoader().getResource("./View/dayTripInfoView.fxml"));
+        loader.setLocation(getClass().getClassLoader().getResource("View/dayTripInfoView.fxml"));
         Parent parent = loader.load();
         Scene scene = new Scene(parent);
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
+
+        DayTripInfoController tourController = loader.getController();
+        tourController.initData(trip);
+
+
+
+
+    }
+
+    @FXML
+    private void bookTripHandler(ActionEvent event) throws IOException {
+        System.out.println("Book");
+
+    }
+
+
+
+    @FXML
+    private void myTripsHandler(ActionEvent event) throws IOException {
+        System.out.println("My Trips");
+
+    }
+
+    @FXML
+    private void searchHandler(ActionEvent event) throws IOException {
+        System.out.println("Search");
+
     }
 
 
