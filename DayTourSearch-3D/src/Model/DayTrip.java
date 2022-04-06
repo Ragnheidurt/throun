@@ -8,6 +8,7 @@ public class DayTrip {
     private String title;
     private int price;
     private int duration;
+    private double rating;
     private LocalDate date;
     private LocalTime startTime;
     private int availableSeats;
@@ -17,11 +18,12 @@ public class DayTrip {
     private String description;
     private LocalDate dateAdded;
 
-    public DayTrip(int dayTripId, String title, int price, int duration, LocalDate date, LocalTime startTime, int availableSeats, String language, char location, String activity) {
+    public DayTrip(int dayTripId, String title, int price, int duration, double rating, LocalDate date, LocalTime startTime, int availableSeats, String language, char location, String activity) {
         this.dayTripId = dayTripId;
         this.title = title;
         this.price = price;
         this.duration = duration;
+        this.rating = rating;
         this.date = date;
         this.startTime = startTime;
         this.availableSeats = availableSeats;
@@ -58,6 +60,10 @@ public class DayTrip {
     public void setDuration(int duration) {
         this.duration = duration;
     }
+
+    public void setRating(int rating) { this.rating = rating;}
+
+    public double getRating() { return rating;}
 
     public LocalDate getDate() {
         return date;

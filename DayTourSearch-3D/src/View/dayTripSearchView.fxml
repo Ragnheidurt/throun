@@ -12,8 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1065.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1065.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DayTripController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="243.0">
          <children>
@@ -46,13 +45,13 @@
                   <ComboBox fx:id="fxLanguage" prefWidth="115.0" />
                </children>
             </HBox>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Search trips" />
+            <Button fx:id="fxSearch" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Search trips" />
             <Line endX="100.0" startX="-95.0000228881836">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Line>
-            <Button maxWidth="80.0" mnemonicParsing="false" prefHeight="30.0" text="My trips">
+            <Button fx:id="fxMyTrips" maxWidth="80.0" mnemonicParsing="false" prefHeight="30.0" text="My trips">
                <VBox.margin>
                   <Insets top="50.0" />
                </VBox.margin>
@@ -63,22 +62,22 @@
          <children>
             <TableView fx:id="fxTable" prefHeight="325.0" prefWidth="696.0">
               <columns>
-                <TableColumn prefWidth="75.0" sortable="false" text="Title" />
-                <TableColumn prefWidth="94.66669464111328" sortable="false" text="Available seats" />
-                  <TableColumn prefWidth="75.0" sortable="false" text="Date" />
-                  <TableColumn prefWidth="75.0" text="Duration" />
-                  <TableColumn prefWidth="75.0" text="Price" />
-                  <TableColumn prefWidth="75.0" sortable="false" text="Activity" />
-                  <TableColumn prefWidth="75.0" sortable="false" text="Location" />
-                  <TableColumn prefWidth="75.0" sortable="false" text="Language" />
-                  <TableColumn prefWidth="75.0" sortType="DESCENDING" text="Rating" />
-                  <TableColumn prefWidth="75.0" sortType="DESCENDING" text="Date added" />
+                <TableColumn fx:id="fxTitleCol" prefWidth="100.0" sortable="false" text="Title" />
+                <TableColumn fx:id="fxSeatsCol" prefWidth="94.66669464111328" sortable="false" text="Available seats" />
+                  <TableColumn fx:id="fxDateCol" prefWidth="75.0" sortable="false" text="Date" />
+                  <TableColumn fx:id="fxDurationCol" prefWidth="75.0" text="Duration" />
+                  <TableColumn fx:id="fxPriceCol" prefWidth="75.0" text="Price" />
+                  <TableColumn fx:id="fxActivityCol" prefWidth="75.0" sortable="false" text="Activity" />
+                  <TableColumn fx:id="fxLocationCol" prefWidth="75.0" sortable="false" text="Location" />
+                  <TableColumn fx:id="fxLanguageCol" prefWidth="75.0" sortable="false" text="Language" />
+                  <TableColumn fx:id="fxRatingCol" prefWidth="75.0" sortType="DESCENDING" text="Rating" />
+                  <TableColumn fx:id="fxDateAddedCol" prefWidth="75.0" sortType="DESCENDING" text="Date added" />
               </columns>
             </TableView>
             <HBox alignment="CENTER" prefHeight="73.0" prefWidth="353.0" spacing="50.0">
                <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" text="Book trip" />
-                  <Button alignment="CENTER" mnemonicParsing="false" text="More about this trip" />
+                  <Button fx:id="fxBookTrip" alignment="CENTER" mnemonicParsing="false" onAction="#tripInfoHandler" prefHeight="30.0" text="Book trip" />
+                  <Button fx:id="fxTripInfo" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" text="More about this trip" />
                </children>
             </HBox>
          </children>
