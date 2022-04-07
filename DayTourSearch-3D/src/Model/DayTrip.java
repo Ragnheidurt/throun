@@ -13,24 +13,26 @@ public class DayTrip {
     private LocalTime startTime;
     private int availableSeats;
     private String language;
-    private char location;
+    private String location;
     private String activity;
     private String description;
     private LocalDate dateAdded;
 
-    public DayTrip(int dayTripId, String title, int price, int duration, double rating, LocalDate date, LocalTime startTime, int availableSeats, String language, char location, String activity) {
+    public DayTrip(int dayTripId, String title, int price, int duration, LocalDate date,
+                   LocalTime startTime, int availableSeats, String language, String location,
+                   String activity, LocalDate dateAdded, String description) {
         this.dayTripId = dayTripId;
         this.title = title;
         this.price = price;
         this.duration = duration;
-        this.rating = rating;
         this.date = date;
         this.startTime = startTime;
         this.availableSeats = availableSeats;
         this.language = language;
         this.location = location;
         this.activity = activity;
-        this.dateAdded = LocalDate.now();
+        this.dateAdded = dateAdded;
+        this.description = description;
     }
 
     public int getDayTripId() {
@@ -97,11 +99,11 @@ public class DayTrip {
         this.language = language;
     }
 
-    public char getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(char location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 

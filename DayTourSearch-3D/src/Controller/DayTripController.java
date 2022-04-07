@@ -2,26 +2,17 @@ package Controller;
 
 import Data.DayTripDataConnection;
 import Model.DayTrip;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ResourceBundle;
 
-public class DayTripController implements Initializable {
+public class DayTripController{
 
     // Interface attributes
     @FXML
@@ -66,19 +57,23 @@ public class DayTripController implements Initializable {
 
 
     // Data attributes
-    public ObservableList<DayTrip> dayTrips = FXCollections.observableArrayList();
+    public  ObservableList<DayTrip> dayTrips;
     private DayTripDataConnection conn;
+
+
 
 
     /**
      * Day trip data added to table.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle) throws Exception{
         // Get all day trips (NÁUM ÚR GAGNAGRUNNI SEINNA MEIR)
         // conn.getDayTrips();
-        dayTrips.add(new DayTrip(1,"Eyjafjallajökull",10000,7,3.5,LocalDate.parse("2021-06-22"),LocalTime.now(), 10,"íslenska",'S',"Fjallganga"));
-        dayTrips.add(new DayTrip(2,"Sund",2000,2,4,LocalDate.parse("2021-06-22"),LocalTime.now(), 100,"íslenska",'S',"Sund"));
+        //dayTrips.add(new DayTrip(1,"Eyjafjallajökull",10000,7,3.5,LocalDate.parse("2021-06-22"),LocalTime.now(), 10,"íslenska",'S',"Fjallganga"));
+        //dayTrips.add(new DayTrip(2,"Sund",2000,2,4,LocalDate.parse("2021-06-22"),LocalTime.now(), 100,"íslenska",'S',"Sund"));
+        DayTripDataConnection conn = new DayTripDataConnection();
+        dayTrips = conn.getDayTrips();
 
         // BÆTTI VIÐ DOUBLE RATING SEM TILVIKSBREYTU AMK TÍMABUNDIÐ FYRIR TÖFLUNA (BREYTTI EKKI GAGNAGRUNNINUM)
 
@@ -159,6 +154,7 @@ public class DayTripController implements Initializable {
         System.out.println("Search");
 
     }
+
 
 
 }
