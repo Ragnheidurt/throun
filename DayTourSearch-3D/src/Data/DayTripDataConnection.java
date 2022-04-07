@@ -57,6 +57,7 @@ public class DayTripDataConnection {
     }
 
     public ObservableList<DayTrip> getDayTrips() throws Exception{
+        System.out.println("Hallo");
         String query = "SELECT * FROM DAYTRIPS;";
         ResultSet rs = statement.executeQuery(query);
         ObservableList<DayTrip> trips = FXCollections.observableArrayList();
@@ -90,8 +91,11 @@ public class DayTripDataConnection {
                     language, location, activity, dateAdded, description);
             trips.add(trip);
 
+            System.out.println("Hæ");
 
         }
+
+
 
         return trips;
     }

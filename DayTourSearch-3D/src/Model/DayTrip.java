@@ -33,6 +33,7 @@ public class DayTrip {
         this.activity = activity;
         this.dateAdded = dateAdded;
         this.description = description;
+        this.rating = -1.0;
     }
 
     public int getDayTripId() {

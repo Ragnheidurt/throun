@@ -5,6 +5,7 @@ import Model.DayTrip;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -12,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DayTripController{
+public class DayTripController {
 
     // Interface attributes
     @FXML
@@ -67,15 +68,10 @@ public class DayTripController{
      * Day trip data added to table.
      */
     @FXML
-    public void initialize(URL url, ResourceBundle resourceBundle) throws Exception{
-        // Get all day trips (NÁUM ÚR GAGNAGRUNNI SEINNA MEIR)
-        // conn.getDayTrips();
-        //dayTrips.add(new DayTrip(1,"Eyjafjallajökull",10000,7,3.5,LocalDate.parse("2021-06-22"),LocalTime.now(), 10,"íslenska",'S',"Fjallganga"));
-        //dayTrips.add(new DayTrip(2,"Sund",2000,2,4,LocalDate.parse("2021-06-22"),LocalTime.now(), 100,"íslenska",'S',"Sund"));
+    public void initialize() throws Exception{
+        // Get all day trips
         DayTripDataConnection conn = new DayTripDataConnection();
         dayTrips = conn.getDayTrips();
-
-        // BÆTTI VIÐ DOUBLE RATING SEM TILVIKSBREYTU AMK TÍMABUNDIÐ FYRIR TÖFLUNA (BREYTTI EKKI GAGNAGRUNNINUM)
 
         // Add to table
         fxTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -91,6 +87,7 @@ public class DayTripController{
         fxTable.setItems(dayTrips);
         fxTable.getColumns().setAll(fxTitleCol, fxSeatsCol, fxDateCol, fxDurationCol, fxPriceCol, fxActivityCol,
                                     fxLocationCol, fxLanguageCol, fxRatingCol, fxDateAddedCol);
+
 
 
 
