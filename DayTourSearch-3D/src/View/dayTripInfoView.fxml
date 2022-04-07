@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DayTripInfoController">
-   <children>
-      <Label fx:id="fxTitle" layoutX="272.0" layoutY="183.0" prefHeight="53.0" prefWidth="150.0" text="Title" />
-   </children>
-</Pane>
+<fx:root prefHeight="197.0" prefWidth="360.0" type="DialogPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <header>
+      <Label fx:id="fxTitle" prefHeight="45.0" prefWidth="343.0" text="Title" underline="true">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+   </header>
+   <content>
+      <VBox prefHeight="197.0" prefWidth="360.0">
+         <children>
+            <HBox prefHeight="150.0" prefWidth="149.0">
+               <children>
+                  <Label fx:id="fxDescription" prefHeight="126.0" prefWidth="181.0" text="Description" />
+                  <ImageView fx:id="fxImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </content>
+</fx:root>
