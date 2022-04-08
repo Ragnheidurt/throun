@@ -2,16 +2,17 @@ package Controller;
 
 import Data.DayTripDataConnection;
 import Model.DayTrip;
+import View.DayTripInfo;
+import View.UserLogin;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Pair;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class DayTripController {
 
@@ -25,13 +26,7 @@ public class DayTripController {
     @FXML
     private ComboBox<String> fxLanguage;
     @FXML
-    private Button fxSearch;
-    @FXML
-    private Button fxMyTrips;
-    @FXML
-    private Button fxBookTrip;
-    @FXML
-    private Button fxTripInfo;
+    private Label fxCustomer;
     @FXML
     private TableView<DayTrip> fxTable;
     @FXML
@@ -58,17 +53,31 @@ public class DayTripController {
 
 
     // Data attributes
-    public  ObservableList<DayTrip> dayTrips;
+    private ObservableList<DayTrip> dayTrips;
     private DayTripDataConnection conn;
 
 
 
 
     /**
-     * Day trip data added to table.
+     * Interface initialized and day trip data added to table.
      */
     @FXML
     public void initialize() throws Exception{
+        // Get the user info from login system
+        // Check if the user has an account, if not then we exit
+        UserLogin login = new UserLogin();
+        Pair<Integer, String> user =  login.getUser();
+        // FÁ TENGINGU VIÐ CUTOMERDATACONNECTION OG ATHUGA HVORT ÞESSI USER ER Í GAGNAGRUNNINUM
+        // EF SVO ER ÞÁ BÚUM VIÐ TIL USER HLUT, ANNARS HÆTTUM VIÐ
+
+
+
+        // Items to combobox
+        fxActivity.setItems(FXCollections.observableArrayList("", "Fjallganga", "Sigling", "Skíði", "Köfun"));
+        fxLocation.setItems(FXCollections.observableArrayList("", "S", "V", "N", "A"));
+        fxLanguage.setItems(FXCollections.observableArrayList("", "íslenska", "enska"));
+
         // Get all day trips
         DayTripDataConnection conn = new DayTripDataConnection();
         dayTrips = conn.getDayTrips();
@@ -99,10 +108,9 @@ public class DayTripController {
     private void tripInfoHandler(ActionEvent event) throws IOException {
         // Get the day trip that is selected and create a new DayTripInfo object for this trip
         DayTrip trip = fxTable.getSelectionModel().getSelectedItem();   // kannski betra að nota id???
-        //System.out.println(trip.getTitle());
         if(trip == null) return;
         else{
-            DayTripInfoController info = new DayTripInfoController(trip);
+            DayTripInfo info = new DayTripInfo(trip);
 
         }
 
@@ -149,6 +157,12 @@ public class DayTripController {
     @FXML
     private void searchHandler(ActionEvent event) throws IOException {
         System.out.println("Search");
+
+    }
+
+    @FXML
+    private void logoutHandler(ActionEvent event) throws IOException {
+        System.out.println("Logout");
 
     }
 

@@ -1,4 +1,4 @@
-package Controller;
+package View;
 
 import Model.DayTrip;
 import javafx.fxml.FXML;
@@ -11,16 +11,15 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 import java.io.IOException;
-import java.util.Optional;
 
-public class DayTripInfoController extends DialogPane {
+public class DayTripInfo extends DialogPane {
 
     @FXML
     private Label fxTitle, fxDescription;
     @FXML
     private ImageView fxImage;
 
-    public DayTripInfoController(DayTrip trip){
+    public DayTripInfo(DayTrip trip){
         // Read .fxml
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/dayTripInfoView.fxml"));
         fxmlLoader.setRoot(this);
@@ -48,7 +47,6 @@ public class DayTripInfoController extends DialogPane {
         fxTitle.setText(trip.getTitle());
         fxDescription.setText(trip.getDescription());
 
-        System.out.println("Hér");
 
 
 
@@ -59,8 +57,5 @@ public class DayTripInfoController extends DialogPane {
 
 
 
-    public void initData(DayTrip trip){
-        fxTitle.setText(trip.getTitle());
-    }
 
 }

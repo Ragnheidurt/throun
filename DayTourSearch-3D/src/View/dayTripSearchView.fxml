@@ -51,9 +51,19 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Line>
+            <Label fx:id="fxCustomer" alignment="CENTER" prefHeight="25.0" prefWidth="240.0" text="username (custId)">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </Label>
             <Button maxWidth="80.0" mnemonicParsing="false" onAction="#myTripsHandler" prefHeight="30.0" text="My trips">
                <VBox.margin>
-                  <Insets top="50.0" />
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#logoutHandler" prefHeight="30.0" text="Logout">
+               <VBox.margin>
+                  <Insets top="5.0" />
                </VBox.margin>
             </Button>
          </children>

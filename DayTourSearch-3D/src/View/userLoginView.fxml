@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root headerText="Viðburður " prefHeight="189.0" prefWidth="297.0" type="javafx.scene.control.DialogPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <content>
+        <VBox prefHeight="206.0" prefWidth="533.0">
+            <children>
+                <HBox prefHeight="14.0" prefWidth="1324.0">
+                    <children>
+                        <Label prefHeight="17.0" prefWidth="73.0" text="User Id:">
+                            <HBox.margin>
+                                <Insets right="5.0" />
+                            </HBox.margin>
+                        </Label>
+                        <TextField fx:id="fxUserId" prefHeight="25.0" prefWidth="146.0">
+                            <HBox.margin>
+                                <Insets bottom="5.0" />
+                            </HBox.margin>
+                        </TextField>
+                    </children>
+                </HBox>
+                <HBox layoutX="20.0" layoutY="20.0" prefHeight="40.0" prefWidth="1324.0">
+                    <children>
+                        <Label prefHeight="17.0" prefWidth="74.0" text="Password:">
+                            <HBox.margin>
+                                <Insets right="5.0" />
+                            </HBox.margin>
+                        </Label>
+                        <TextField fx:id="fxPassword" prefHeight="25.0" prefWidth="149.0">
+                            <HBox.margin>
+                                <Insets bottom="50.0" />
+                            </HBox.margin>
+                        </TextField>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </content>
+    <ButtonType fx:id="fxLogin" buttonData="OK_DONE" text="Login" />
+    <ButtonType fx:id="fxCancel" buttonData="CANCEL_CLOSE" text="Cancel" />
+   <header>
+      <Label prefHeight="50.0" prefWidth="527.0" text="Login" underline="true">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+   </header>
+</fx:root>
