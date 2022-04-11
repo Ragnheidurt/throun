@@ -51,4 +51,8 @@ public class BookingDataConnection {
         return bookings;
     }
 
+    public void insertBooking(String insert) throws Exception{
+        statement.executeUpdate(insert);
+    }
+
 }
