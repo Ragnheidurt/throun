@@ -27,9 +27,9 @@ public class UserLogin extends DialogPane {
 
     }
 
-    public Pair<Integer, String> getUser(){
+    public Pair<String, String> getUser(){
         // Dialogurinn (umgjörðin um DialogPane) búin til
-        Dialog<Pair<Integer, String>> d = new Dialog<>();
+        Dialog<Pair<String, String>> d = new Dialog<>();
 
         // Innihaldið sett í dialog-inn umgjörðina
         d.setDialogPane(this);
@@ -42,7 +42,7 @@ public class UserLogin extends DialogPane {
         // Callback hefur eina aðferð og við endurforritum hana
         d.setResultConverter(b -> {                                 // b er af taginu ButtonType
             if (b.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-                return new Pair<Integer, String>(Integer.valueOf(fxUserId.getText()), fxPassword.getText());
+                return new Pair<String, String>(fxUserId.getText(), fxPassword.getText());
             } else {
                 System.exit(0);
                 // KANNSKI SKILA GAMLA USERNUM EF VIÐ LÁTUM ÞETTA OPNAST LÍKA EF HÆGT ER AÐ SKRÁ SIG ÚT
@@ -51,7 +51,7 @@ public class UserLogin extends DialogPane {
         });
 
         // Dialog birtur og svarið fengið
-        Optional<Pair<Integer, String>> utkoma = d.showAndWait();
+        Optional<Pair<String, String>> utkoma = d.showAndWait();
         return utkoma.orElse(null);
 
     }

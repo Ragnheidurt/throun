@@ -3,7 +3,6 @@ package Controller;
 import Data.BookingDataConnection;
 import Data.CustomerDataConnection;
 import Data.DayTripDataConnection;
-import Data.ReviewDataConnection;
 import Model.Booking;
 import Model.Customer;
 import Model.DayTrip;
@@ -64,7 +63,6 @@ public class DayTripController {
     private Customer customer;
     private BookingDataConnection bookingDataConn;
     private ObservableList<Booking> bookings;
-    private ReviewDataConnection reviewDataConn;
 
 
 
@@ -78,7 +76,8 @@ public class DayTripController {
         // Get the user info from login system
         // Check if the user has an account, if not then we exit
         UserLogin login = new UserLogin();
-        Pair<Integer, String> user =  login.getUser();
+        Pair<String, String> user = login.getUser();
+
         // FÁ TENGINGU VIÐ CUTOMERDATACONNECTION OG ATHUGA HVORT ÞESSI USER ER Í GAGNAGRUNNINUM
         // EF SVO ER ÞÁ BÚUM VIÐ TIL USER HLUT, ANNARS HÆTTUM VIÐ
 
@@ -99,6 +98,10 @@ public class DayTripController {
         fxActivity.setItems(FXCollections.observableArrayList("", "Fjallganga", "Sigling", "Skíði", "Köfun"));
         fxLocation.setItems(FXCollections.observableArrayList("", "S", "V", "N", "A"));
         fxLanguage.setItems(FXCollections.observableArrayList("", "íslenska", "enska"));
+
+        fxActivity.setValue("");
+        fxLocation.setValue("");
+        fxLanguage.setValue("");
 
         // Get all day trips
         dayTripConn = new DayTripDataConnection();
@@ -127,7 +130,7 @@ public class DayTripController {
 
 
     @FXML
-    private void tripInfoHandler(ActionEvent event) throws IOException {
+    private void tripInfoHandler(ActionEvent event) throws Exception {
         // Get the day trip that is selected and create a new DayTripInfo object for this trip
         DayTrip trip = fxTable.getSelectionModel().getSelectedItem();   // kannski betra að nota id???
         if(trip == null) return;
@@ -177,8 +180,30 @@ public class DayTripController {
     }
 
     @FXML
-    private void searchHandler(ActionEvent event) throws IOException {
-        System.out.println("Search");
+    private void searchHandler(ActionEvent event) throws Exception {
+        String date = fxDate.getValue() == null ? "" : fxDate.getValue().toString();
+        String activity = fxActivity.getValue();
+        String location = fxLocation.getValue();
+        String language = fxLanguage.getValue();
+
+        String query = "SELECT * FROM DAYTRIPS WHERE dateStart ";
+        query += date.equals("") ? "Like '%'" : ("= '" + date + "'");
+        query += " AND activity ";
+        query += activity.equals("") ? "Like '%'" : ("= '" + activity + "'");
+        query += " AND location ";
+        query += location.equals("") ? "Like '%'" : ("= '" + location + "'");
+        query += " AND languageSpoken ";
+        query += language.equals("") ? "Like '%'" : ("= '" + language + "'");
+        query += ";";
+
+        System.out.println(query);
+
+        ObservableList<DayTrip> filteredTrips = dayTripConn.filterDayTrips(query);
+        for(DayTrip trip : filteredTrips) System.out.println(trip.getTitle() + " " + trip.getRating());
+        fxTable.getItems().clear();
+        fxTable.setItems(filteredTrips);
+        fxTable.getColumns().setAll(fxTitleCol, fxSeatsCol, fxDateCol, fxDurationCol, fxPriceCol, fxActivityCol,
+                fxLocationCol, fxLanguageCol, fxRatingCol, fxDateAddedCol);
 
     }
 

@@ -88,9 +88,57 @@ public class DayTripDataConnection {
             dateAdded = LocalDate.parse(rs.getString("dateadded"));
             DayTrip trip = new DayTrip(dayTripId, title, price, duration,date, startTime,  availableSeats,
                     language, location, activity, dateAdded, description);
+            Statement stmt = connection.createStatement();
+            ResultSet result = stmt.executeQuery("SELECT AVG(rating) FROM REVIEWS WHERE dayTripId = "
+                            + dayTripId + ";");
+            trip.setRating(result.getDouble(1));
             trips.add(trip);
         }
 
         return trips;
     }
+
+    public ObservableList<DayTrip> filterDayTrips(String query) throws Exception{
+        ResultSet rs = statement.executeQuery(query);
+        ObservableList<DayTrip> trips = FXCollections.observableArrayList();
+        DayTrip dayTrip;
+        int dayTripId;
+        String title;
+        int price;
+        int duration;
+        LocalDate date;
+        LocalTime startTime;
+        int availableSeats;
+        String language;
+        String location;
+        String activity;
+        LocalDate dateAdded;
+        String description;
+        while(rs.next()){
+            dayTripId = rs.getInt("dayTripId");
+            title = rs.getString("title");
+            price = rs.getInt("price");
+            duration = rs.getInt("duration");
+            date = LocalDate.parse(rs.getString("dateStart"));
+            startTime = LocalTime.now(); //Þarf að fiffa
+            availableSeats = rs.getInt("availableSeats");
+            language = rs.getString("languageSpoken");
+            location = rs.getString("location"); //Þarf að fiffa
+            activity = rs.getString("activity");
+            description = rs.getString("description");
+            dateAdded = LocalDate.parse(rs.getString("dateadded"));
+            DayTrip trip = new DayTrip(dayTripId, title, price, duration,date, startTime,  availableSeats,
+                    language, location, activity, dateAdded, description);
+            Statement stmt = connection.createStatement();
+            ResultSet result = stmt.executeQuery("SELECT AVG(rating) FROM REVIEWS WHERE dayTripId = "
+                    + dayTripId + ";");
+            trip.setRating(result.getDouble(1));
+            trips.add(trip);
+        }
+
+        return trips;
+
+
+    }
+
 }

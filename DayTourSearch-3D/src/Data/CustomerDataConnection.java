@@ -37,13 +37,16 @@ public class CustomerDataConnection {
         }
     }
 
-    public Customer getCustomer(int customerId, String password) throws Exception{
-        String query = "SELECT * FROM CUSTOMERS WHERE customerId = " + customerId + ";";
+    public Customer getCustomer(String username, String password) throws Exception{
+        String query = "SELECT * FROM CUSTOMERS WHERE username = '" + username + "';";
         ResultSet rs = statement.executeQuery(query);
+        if(!rs.next()) {
+            System.exit(0);
+        }
         String result = rs.getString("password");
-        if(!password.equals(result)) return null; //Fiffa
+        if(!password.equals(result)) System.exit(0); //Fiffa
 
-        String username = rs.getString("username");
+        int customerId = rs.getInt("customerId");
 
         return new Customer(customerId,password,username);
     }

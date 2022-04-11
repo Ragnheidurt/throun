@@ -64,7 +64,7 @@ public class DayTrip {
         this.duration = duration;
     }
 
-    public void setRating(int rating) { this.rating = rating;}
+    public void setRating(double rating) { this.rating = rating;}
 
     public double getRating() { return rating;}
 
