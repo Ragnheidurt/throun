@@ -56,6 +56,7 @@ public class DayTripController {
 
 
 
+
     // Data attributes
     private ObservableList<DayTrip> dayTrips;
     private DayTripDataConnection dayTripConn;
@@ -63,6 +64,7 @@ public class DayTripController {
     private Customer customer;
     private BookingDataConnection bookingDataConn;
     private ObservableList<Booking> bookings;
+    private BookingController bookingController;
 
 
 
@@ -166,8 +168,25 @@ public class DayTripController {
     }
 
     @FXML
-    private void bookTripHandler(ActionEvent event) throws IOException {
+    private void bookTripHandler(ActionEvent event) throws Exception {
         System.out.println("Book");
+        DayTrip trip = fxTable.getSelectionModel().getSelectedItem();
+
+        /*
+        bookingController = new BookingController(trip,customer);
+        Booking booking = bookingController.getBooking();
+        customer.addBooking(booking);
+        String update = "UPDATE dayTrips SET availableSeats = availableSeats - " + booking.getNumberOfGuests()
+            + " WHERE dayTripId = " + trip.getDayTripId() + ";";
+        dayTripConn.updateTrip(update);
+
+        String insert = "INSERT INTO BOOKINGS VALUES(" + customer.getCustomerId() + ","
+            + trip.getDayTripId() + "," + booking.getNumberOfGuests() + ");";
+        bookingDataConn.insertBooking(insert);
+        */
+
+
+
 
     }
 

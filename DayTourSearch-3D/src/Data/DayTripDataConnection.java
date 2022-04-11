@@ -137,8 +137,10 @@ public class DayTripDataConnection {
         }
 
         return trips;
+    }
 
-
+    public void updateTrip(String update) throws Exception{
+        statement.executeUpdate(update);
     }
 
 }
