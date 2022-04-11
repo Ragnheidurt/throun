@@ -3,33 +3,33 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
+<?import javafx.scene.text.Text?>
 
 <fx:root prefHeight="197.0" prefWidth="360.0" type="DialogPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <header>
-      <Label fx:id="fxTitle" prefHeight="45.0" prefWidth="343.0" text="Title" underline="true">
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
+      <HBox>
+         <children>
+            <Label fx:id="fxTitle" prefHeight="45.0" prefWidth="291.0" text="Title" underline="true">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="fxAverageRating" prefHeight="45.0" prefWidth="69.0" text="Meðaleinkunn" />
+         </children>
+      </HBox>
    </header>
    <content>
-      <VBox prefHeight="197.0" prefWidth="360.0">
+      <HBox>
          <children>
-            <HBox prefHeight="150.0" prefWidth="149.0">
-               <children>
-                  <Label fx:id="fxDescription" prefHeight="126.0" prefWidth="181.0" text="Description" />
-                  <ImageView fx:id="fxImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-               </children>
-            </HBox>
+            <Text fx:id="fxDescription" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="163.47006225585938" />
+            <ListView fx:id="fxListReview" prefHeight="200.0" prefWidth="200.0" />
          </children>
-      </VBox>
+      </HBox>
    </content>
 </fx:root>

@@ -4,20 +4,20 @@ import Model.DayTrip;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
 public class DayTripInfo extends DialogPane {
 
     @FXML
-    private Label fxTitle, fxDescription;
+    private Label fxTitle;
     @FXML
-    private ImageView fxImage;
+    private Text fxDescription;
+    @FXML
+    private ListView fxListReview;
 
     public DayTripInfo(DayTrip trip){
         // Read .fxml
