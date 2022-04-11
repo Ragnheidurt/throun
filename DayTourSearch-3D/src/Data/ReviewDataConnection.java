@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -17,7 +16,7 @@ public class ReviewDataConnection {
     private Scanner read;
     private String command;
 
-    public ReviewDataConnection() throws IOException, ClassNotFoundException{
+    public ReviewDataConnection() throws Exception{
         Class.forName("org.sqlite.JDBC");
         connection = null;
         statement = null;
@@ -37,9 +36,13 @@ public class ReviewDataConnection {
         } catch (SQLException err) {
             System.err.println(err.getMessage());
         }
+        statement.close();
+        connection.close();
     }
 
     public ObservableList<Review> getReviews(int dayTripId) throws Exception {
+        connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
+        statement = connection.createStatement();
         String query = "SELECT * FROM REVIEWS WHERE dayTripId = " + dayTripId + ";";
         ResultSet rs = statement.executeQuery(query);
         ObservableList<Review> reviews = FXCollections.observableArrayList();
@@ -48,6 +51,8 @@ public class ReviewDataConnection {
                     rs.getInt("customerId"),rs.getInt("dayTripId"));
             reviews.add(review);
         }
+        statement.close();
+        connection.close();
         return reviews;
     }
 

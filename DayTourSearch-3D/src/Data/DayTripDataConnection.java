@@ -36,7 +36,8 @@ public class DayTripDataConnection {
 
             connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
             statement = connection.createStatement();
-
+            statement.close();
+            connection.close();
             /*
             read = new Scanner(sql);
             read.useDelimiter(";");
@@ -57,6 +58,8 @@ public class DayTripDataConnection {
     }
 
     public ObservableList<DayTrip> getDayTrips() throws Exception{
+        connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
+        statement  = connection.createStatement();
         String query = "SELECT * FROM DAYTRIPS;";
         ResultSet rs = statement.executeQuery(query);
         ObservableList<DayTrip> trips = FXCollections.observableArrayList();
@@ -94,11 +97,15 @@ public class DayTripDataConnection {
             trip.setRating(result.getDouble(1));
             trips.add(trip);
         }
+        statement.close();
+        connection.close();
 
         return trips;
     }
 
     public ObservableList<DayTrip> filterDayTrips(String query) throws Exception{
+        connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
+        statement  = connection.createStatement();
         ResultSet rs = statement.executeQuery(query);
         ObservableList<DayTrip> trips = FXCollections.observableArrayList();
         DayTrip dayTrip;
@@ -135,12 +142,17 @@ public class DayTripDataConnection {
             trip.setRating(result.getDouble(1));
             trips.add(trip);
         }
-
+        statement.close();
+        connection.close();
         return trips;
     }
 
     public void updateTrip(String update) throws Exception{
+        connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
+        statement  = connection.createStatement();
         statement.executeUpdate(update);
+        statement.close();
+        connection.close();
     }
 
 }

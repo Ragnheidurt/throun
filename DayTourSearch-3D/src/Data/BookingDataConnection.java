@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -17,7 +16,7 @@ public class BookingDataConnection {
     private Scanner read;
     private String command;
 
-    public BookingDataConnection() throws IOException, ClassNotFoundException{
+    public BookingDataConnection() throws Exception{
         Class.forName("org.sqlite.JDBC");
         connection = null;
         statement = null;
@@ -37,9 +36,13 @@ public class BookingDataConnection {
         } catch (SQLException err) {
             System.err.println(err.getMessage());
         }
+        statement.close();
+        connection.close();
     }
 
     public ObservableList<Booking> getBookings(int customerId) throws Exception{
+        connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
+        statement = connection.createStatement();
         String query = "SELECT * FROM BOOKINGS WHERE customerId = " + customerId + ";";
         ResultSet rs = statement.executeQuery(query);
         ObservableList<Booking> bookings = FXCollections.observableArrayList();
@@ -48,11 +51,17 @@ public class BookingDataConnection {
                     rs.getInt("dayTripId"),rs.getInt("numberOfGuests"));
             bookings.add(booking);
         }
+        statement.close();
+        connection.close();
         return bookings;
     }
 
     public void insertBooking(String insert) throws Exception{
+        connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
+        statement = connection.createStatement();
         statement.executeUpdate(insert);
+        statement.close();
+        connection.close();
     }
 
 }

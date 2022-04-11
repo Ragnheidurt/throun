@@ -1,11 +1,11 @@
 package Data;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -23,18 +23,24 @@ public class Setup {
      *
      * @throws IOException
      */
-    private static void initDB() throws IOException {
+    private static Boolean initDB() throws IOException {
+        Boolean exists = false;
         try {
             File db = new File(DB_PATH);
             if (db.createNewFile())
                 System.out.println("Database created.");
             else {
                 System.out.println("Database already exists.");
-                System.exit(0);
+                exists = true;
             }
         } catch (Exception err) {
             System.err.println(err);
         }
+        return exists;
+    }
+
+    private static void dropTable() throws Exception{
+
     }
 
     /**
@@ -48,7 +54,7 @@ public class Setup {
      * @throws ClassNotFoundException
      */
     public static void setup() throws IOException, ClassNotFoundException {
-        initDB();
+        Boolean exists = initDB();
 
         Class.forName("org.sqlite.JDBC");
 
@@ -56,6 +62,7 @@ public class Setup {
         Statement statement = null;
         Scanner read = null;
         String command = null;
+
 
         try {
             File sql = new File(SQL_PATH);
@@ -66,6 +73,13 @@ public class Setup {
 
             connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
             statement = connection.createStatement();
+
+            if(exists){
+                statement.executeUpdate("DROP TABLE DAYTRIPS;");
+                statement.executeUpdate("DROP TABLE CUSTOMERS;");
+                statement.executeUpdate("DROP TABLE REVIEWS;");
+                statement.executeUpdate("DROP TABLE BOOKINGS;");
+            }
 
             read = new Scanner(sql);
             read.useDelimiter(";");

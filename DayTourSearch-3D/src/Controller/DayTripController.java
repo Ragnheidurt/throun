@@ -94,8 +94,6 @@ public class DayTripController {
         for(Booking booking : bookings) customer.addBooking(booking);
 
 
-
-
         // Items to combobox
         fxActivity.setItems(FXCollections.observableArrayList("", "Fjallganga", "Sigling", "Skíði", "Köfun"));
         fxLocation.setItems(FXCollections.observableArrayList("", "S", "V", "N", "A"));
@@ -138,7 +136,6 @@ public class DayTripController {
         if(trip == null) return;
         else{
             DayTripInfo info = new DayTripInfo(trip);
-
         }
 
 
@@ -172,20 +169,36 @@ public class DayTripController {
         System.out.println("Book");
         DayTrip trip = fxTable.getSelectionModel().getSelectedItem();
 
-        /*
         bookingController = new BookingController(trip,customer);
         Booking booking = bookingController.getBooking();
-        customer.addBooking(booking);
+        if(booking == null) return;
+
         String update = "UPDATE dayTrips SET availableSeats = availableSeats - " + booking.getNumberOfGuests()
             + " WHERE dayTripId = " + trip.getDayTripId() + ";";
         dayTripConn.updateTrip(update);
 
-        String insert = "INSERT INTO BOOKINGS VALUES(" + customer.getCustomerId() + ","
-            + trip.getDayTripId() + "," + booking.getNumberOfGuests() + ");";
-        bookingDataConn.insertBooking(insert);
-        */
+        Boolean hasBooked = false;
+        Booking oldBooking = new Booking(0,0,0);
+        for(Booking b : customer.getBookings()){
+            if(b.getDayTripId() == booking.getDayTripId()){
+                hasBooked = true;
+                oldBooking = b;
+            }
+        }
 
-
+        if(hasBooked){
+            oldBooking.setNumberOfGuests(oldBooking.getNumberOfGuests() + booking.getNumberOfGuests());
+            String updateBooking = "UPDATE bookings SET numberOfGuests = " + oldBooking.getNumberOfGuests()
+                    + " WHERE dayTripId = " + oldBooking.getDayTripId() + ";";
+            bookingDataConn.insertBooking(updateBooking);
+        }
+        else{
+            String insertBooking = "INSERT INTO BOOKINGS VALUES(" + customer.getCustomerId() + ","
+                    + trip.getDayTripId() + "," + booking.getNumberOfGuests() + ");";
+            bookingDataConn.insertBooking(insertBooking);
+            customer.addBooking(booking);
+        }
+        searchHandler(null);
 
 
     }
@@ -195,6 +208,7 @@ public class DayTripController {
     @FXML
     private void myTripsHandler(ActionEvent event) throws IOException {
         System.out.println("My Trips");
+        //CustomerController customerController = new CustomerController(customer,dayTripConn.getDayTrips());
 
     }
 
