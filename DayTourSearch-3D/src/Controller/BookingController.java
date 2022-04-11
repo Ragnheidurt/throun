@@ -6,9 +6,7 @@ import Model.DayTrip;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.util.Pair;
 
-import java.awt.print.Book;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -49,7 +47,7 @@ public class BookingController extends DialogPane {
 
     @FXML
     private void updateAmount(){
-        fxAmount.setText(String.valueOf(fxNumberOfGuests.getValue()* trip.getPrice()));
+        fxAmount.setText(String.valueOf(fxNumberOfGuests.getValue()* trip.getPrice()) + " kr");
     }
 
     public Booking getBooking(){

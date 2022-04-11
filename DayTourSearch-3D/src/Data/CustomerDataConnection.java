@@ -3,7 +3,6 @@ package Data;
 import Model.Customer;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -15,7 +14,7 @@ public class CustomerDataConnection {
     private Scanner read;
     private String command;
 
-    public CustomerDataConnection() throws IOException, ClassNotFoundException{
+    public CustomerDataConnection() throws Exception{
         Class.forName("org.sqlite.JDBC");
         connection = null;
         statement = null;
@@ -35,9 +34,13 @@ public class CustomerDataConnection {
         } catch (SQLException err) {
             System.err.println(err.getMessage());
         }
+        statement.close();
+        connection.close();
     }
 
     public Customer getCustomer(String username, String password) throws Exception{
+        connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
+        statement = connection.createStatement();
         String query = "SELECT * FROM CUSTOMERS WHERE username = '" + username + "';";
         ResultSet rs = statement.executeQuery(query);
         if(!rs.next()) {
@@ -47,7 +50,8 @@ public class CustomerDataConnection {
         if(!password.equals(result)) System.exit(0); //Fiffa
 
         int customerId = rs.getInt("customerId");
-
+        statement.close();
+        connection.close();
         return new Customer(customerId,password,username);
     }
 
