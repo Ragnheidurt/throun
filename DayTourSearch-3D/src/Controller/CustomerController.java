@@ -28,13 +28,14 @@ public class CustomerController {
     @FXML
     private Label fxCustomer;
     @FXML
-    private TableView<DayTrip> fxTable;
+    private TableView fxTable;
     @FXML
     private TableColumn<DayTrip, String> fxTitleCol;
     @FXML
-    private TableColumn<DayTrip, Integer> fxSeatsCol;
+    private TableColumn<Booking, Integer> fxSeatsCol;
     @FXML
     private TableColumn<DayTrip, String> fxDateCol;
+    /*
     @FXML
     private TableColumn<DayTrip, Integer> fxDurationCol;
     @FXML
@@ -50,17 +51,18 @@ public class CustomerController {
     @FXML
     private TableColumn<DayTrip, String> fxDateAddedCol;
 
+     */
+
     // Data attributes
     private ObservableList<DayTrip> customerDayTrips = FXCollections.observableArrayList();
     private Customer customer;
     private ObservableList<DayTrip> dayTrips;
 
     public CustomerController(){
-
+        System.out.println("Hér");
     }
 
-    @FXML
-    public void initialize(Customer customer, ObservableList<DayTrip> dayTrips) throws Exception{
+    public void initData(Customer customer, ObservableList<DayTrip> dayTrips){
         fxCustomer.setText(customer.getUsername());
 
         System.out.println(customer.getUsername());
@@ -76,10 +78,13 @@ public class CustomerController {
 
         System.out.println(customerDayTrips.get(0).getTitle());
 
+        ObservableList<Booking> b = FXCollections.observableArrayList(bookings);
+
         // Add to table
         fxTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-        fxSeatsCol.setCellValueFactory(new PropertyValueFactory<>("availableSeats"));
+        fxSeatsCol.setCellValueFactory(new PropertyValueFactory<>("numberOfGuests"));
         fxDateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        /*
         fxDurationCol.setCellValueFactory(new PropertyValueFactory<>("duration"));
         fxPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         fxActivityCol.setCellValueFactory(new PropertyValueFactory<>("activity"));
@@ -87,16 +92,21 @@ public class CustomerController {
         fxLanguageCol.setCellValueFactory(new PropertyValueFactory<>("language"));
         fxRatingCol.setCellValueFactory(new PropertyValueFactory<>("rating"));
         fxDateAddedCol.setCellValueFactory(new PropertyValueFactory<>("dateAdded"));
-        fxTable.setItems(dayTrips);
-        fxTable.getColumns().setAll(fxTitleCol, fxSeatsCol, fxDateCol, fxDurationCol, fxPriceCol, fxActivityCol,
-                fxLocationCol, fxLanguageCol, fxRatingCol, fxDateAddedCol);
+
+         */
+        fxTable.setItems(b);
+        fxTable.getColumns().setAll(fxTitleCol, fxSeatsCol, fxDateCol);
+        //fxTable.getColumns().setAll(fxTitleCol, fxSeatsCol, fxDateCol, fxDurationCol, fxPriceCol, fxActivityCol,
+          //      fxLocationCol, fxLanguageCol, fxRatingCol, fxDateAddedCol);
 
     }
-
+    /*
     public CustomerController(Customer customer, ObservableList<DayTrip> dayTrips) throws Exception{
         this.customer = customer;
         this.dayTrips = dayTrips;
     }
+
+     */
 
     /*
     public CustomerController(Customer customer, ObservableList<DayTrip> dayTrips) throws Exception{
@@ -135,6 +145,8 @@ public class CustomerController {
     }
 
      */
+
+
 
     @FXML
     private void backButtonHandler(){

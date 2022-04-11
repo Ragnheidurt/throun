@@ -214,6 +214,25 @@ public class DayTripController {
     private void myTripsHandler(ActionEvent event) throws Exception {
         System.out.println("My Trips");
 
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getClassLoader().getResource("./View/myTripsView.fxml"));
+        Parent parent = loader.load();
+        Scene scene = new Scene(parent);
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+
+        CustomerController tourController = loader.getController();
+        tourController.initData(customer, dayTripConn.getDayTrips());
+
+        /*
+        FXMLLoader loader = new FXMLLoader();
+        loader.load(getClass().getResource("../View/myTripsView.fxml"));
+        Parent parent = loader.load();
+        Scene scene = new Scene(parent);
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
 
 
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("../View/myTripsView.fxml"));
@@ -224,10 +243,12 @@ public class DayTripController {
         window.setScene(tableViewScene);
         window.show();
 
-        //CustomerController tourController = loader.getController();
-        //tourController.initData(trip);
+        //CustomerController customerController = loader.getController();
+        //customerController.initData(customer, dayTripConn.getDayTrips());
 
-        CustomerController customerController = new CustomerController(customer, dayTripConn.getDayTrips());
+        //CustomerController customerController = new CustomerController(customer, dayTripConn.getDayTrips());
+
+         */
 
     }
 
