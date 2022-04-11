@@ -67,12 +67,6 @@ INSERT INTO DAYTRIPS VALUES(10, 'Látrabjarg', 3000, 2, '2022-07-15','13:00', 20
 INSERT INTO DAYTRIPS VALUES(11, 'Flatey', 7500, 10, '2022-06-16','11:00', 4, 'íslenska', 'V', 'Sigling',
     'Sigling út í Flatey þar sem þú getur eytt deginum', '2022-03-31');
 
-
-
-
-
-
-
 INSERT INTO BOOKINGS VALUES(1,1,2);
 INSERT INTO BOOKINGS VALUES(1,2,4);
 INSERT INTO BOOKINGS VALUES(1,5,6);

@@ -1,6 +1,10 @@
 package Controller;
 
+import Data.BookingDataConnection;
+import Data.CustomerDataConnection;
 import Data.DayTripDataConnection;
+import Model.Booking;
+import Model.Customer;
 import Model.DayTrip;
 import View.DayTripInfo;
 import View.UserLogin;
@@ -54,7 +58,12 @@ public class DayTripController {
 
     // Data attributes
     private ObservableList<DayTrip> dayTrips;
-    private DayTripDataConnection conn;
+    private DayTripDataConnection dayTripConn;
+    private CustomerDataConnection customerConn;
+    private Customer customer;
+    private BookingDataConnection bookingDataConn;
+    private ObservableList<Booking> bookings;
+
 
 
 
@@ -71,16 +80,25 @@ public class DayTripController {
         // FÁ TENGINGU VIÐ CUTOMERDATACONNECTION OG ATHUGA HVORT ÞESSI USER ER Í GAGNAGRUNNINUM
         // EF SVO ER ÞÁ BÚUM VIÐ TIL USER HLUT, ANNARS HÆTTUM VIÐ
 
+        customerConn = new CustomerDataConnection();
+        customer = customerConn.getCustomer(user.getKey(),user.getValue());
+        fxCustomer.setText(customer.getUsername());
 
+        // FÁ TENGINGU VIÐ BOOKINGDATACONNECTION OG BÆTA VIÐ FERÐUM ÞESSA CUSTOMERS
 
+        bookingDataConn = new BookingDataConnection();
+        bookings = bookingDataConn.getBookings(customer.getCustomerId());
+        for(Booking booking : bookings) customer.addBooking(booking);
+
+        
         // Items to combobox
         fxActivity.setItems(FXCollections.observableArrayList("", "Fjallganga", "Sigling", "Skíði", "Köfun"));
         fxLocation.setItems(FXCollections.observableArrayList("", "S", "V", "N", "A"));
         fxLanguage.setItems(FXCollections.observableArrayList("", "íslenska", "enska"));
 
         // Get all day trips
-        DayTripDataConnection conn = new DayTripDataConnection();
-        dayTrips = conn.getDayTrips();
+        dayTripConn = new DayTripDataConnection();
+        dayTrips = dayTripConn.getDayTrips();
 
         // Add to table
         fxTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));

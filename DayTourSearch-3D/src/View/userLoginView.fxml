@@ -20,7 +20,7 @@
                                 <Insets right="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="fxUserId" prefHeight="25.0" prefWidth="146.0">
+                        <TextField fx:id="fxUserId" prefHeight="26.0" prefWidth="150.0">
                             <HBox.margin>
                                 <Insets bottom="5.0" />
                             </HBox.margin>
@@ -34,7 +34,7 @@
                                 <Insets right="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="fxPassword" prefHeight="25.0" prefWidth="149.0">
+                        <TextField fx:id="fxPassword" prefHeight="25.0" prefWidth="150.0">
                             <HBox.margin>
                                 <Insets bottom="50.0" />
                             </HBox.margin>
