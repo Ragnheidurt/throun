@@ -3,6 +3,7 @@ package Controller;
 import Data.BookingDataConnection;
 import Data.CustomerDataConnection;
 import Data.DayTripDataConnection;
+import Data.ReviewDataConnection;
 import Model.Booking;
 import Model.Customer;
 import Model.DayTrip;
@@ -63,6 +64,7 @@ public class DayTripController {
     private Customer customer;
     private BookingDataConnection bookingDataConn;
     private ObservableList<Booking> bookings;
+    private ReviewDataConnection reviewDataConn;
 
 
 
@@ -90,7 +92,9 @@ public class DayTripController {
         bookings = bookingDataConn.getBookings(customer.getCustomerId());
         for(Booking booking : bookings) customer.addBooking(booking);
 
-        
+
+
+
         // Items to combobox
         fxActivity.setItems(FXCollections.observableArrayList("", "Fjallganga", "Sigling", "Skíði", "Köfun"));
         fxLocation.setItems(FXCollections.observableArrayList("", "S", "V", "N", "A"));
