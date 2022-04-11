@@ -7,33 +7,38 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableListBase;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CustomerController {
 
     // Interface attributes
     @FXML
-    private Label fxCutomer;
+    private Label fxCustomer;
     @FXML
-    private TableView fxTable;
+    private TableView<DayTrip> fxTable;
     @FXML
     private TableColumn<DayTrip, String> fxTitleCol;
     @FXML
-    private TableColumn<Booking, Integer> fxSeatsCol;
-    @FXML
-    private TableColumn<DayTrip, Integer> fxAmountCol;
+    private TableColumn<DayTrip, Integer> fxSeatsCol;
     @FXML
     private TableColumn<DayTrip, String> fxDateCol;
     @FXML
-    private TableColumn<DayTrip, String> fxTimeCol;
-    @FXML
     private TableColumn<DayTrip, Integer> fxDurationCol;
+    @FXML
+    private TableColumn<DayTrip, Integer> fxPriceCol;
     @FXML
     private TableColumn<DayTrip, String> fxActivityCol;
     @FXML
@@ -42,12 +47,25 @@ public class CustomerController {
     private TableColumn<DayTrip, String> fxLanguageCol;
     @FXML
     private TableColumn<DayTrip, Integer> fxRatingCol;
+    @FXML
+    private TableColumn<DayTrip, String> fxDateAddedCol;
 
     // Data attributes
     private ObservableList<DayTrip> customerDayTrips = FXCollections.observableArrayList();
+    private Customer customer;
+    private ObservableList<DayTrip> dayTrips;
+
+    public CustomerController(){
+
+    }
+
+    @FXML
+    public void initialize(Customer customer, ObservableList<DayTrip> dayTrips) throws Exception{
+        fxCustomer.setText(customer.getUsername());
+
+        System.out.println(customer.getUsername());
 
 
-    public CustomerController(Customer customer, ObservableList<DayTrip> dayTrips){
         //
         ArrayList<Booking> bookings = customer.getBookings();
         for(DayTrip d : dayTrips){
@@ -56,21 +74,90 @@ public class CustomerController {
             }
         }
 
+        System.out.println(customerDayTrips.get(0).getTitle());
+
         // Add to table
         fxTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-        fxSeatsCol.setCellValueFactory(new PropertyValueFactory<>("numberOfGuests"));
-        fxAmountCol.setCellValueFactory(new PropertyValueFactory<>("price"));  // SKOÐA!!!!!!
+        fxSeatsCol.setCellValueFactory(new PropertyValueFactory<>("availableSeats"));
         fxDateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-        fxTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         fxDurationCol.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        fxPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         fxActivityCol.setCellValueFactory(new PropertyValueFactory<>("activity"));
         fxLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
         fxLanguageCol.setCellValueFactory(new PropertyValueFactory<>("language"));
         fxRatingCol.setCellValueFactory(new PropertyValueFactory<>("rating"));
-        fxTable.setItems(customerDayTrips);
-        fxTable.getColumns().setAll(fxTitleCol, fxSeatsCol, fxAmountCol, fxDateCol, fxTimeCol, fxDurationCol, fxActivityCol,
-                fxLocationCol, fxLanguageCol, fxRatingCol);
+        fxDateAddedCol.setCellValueFactory(new PropertyValueFactory<>("dateAdded"));
+        fxTable.setItems(dayTrips);
+        fxTable.getColumns().setAll(fxTitleCol, fxSeatsCol, fxDateCol, fxDurationCol, fxPriceCol, fxActivityCol,
+                fxLocationCol, fxLanguageCol, fxRatingCol, fxDateAddedCol);
 
+    }
+
+    public CustomerController(Customer customer, ObservableList<DayTrip> dayTrips) throws Exception{
+        this.customer = customer;
+        this.dayTrips = dayTrips;
+    }
+
+    /*
+    public CustomerController(Customer customer, ObservableList<DayTrip> dayTrips) throws Exception{
+
+        fxCustomer.setText(customer.getUsername());
+
+        System.out.println(customer.getUsername());
+
+
+        //
+        ArrayList<Booking> bookings = customer.getBookings();
+        for(DayTrip d : dayTrips){
+            for(Booking b : bookings){
+                if(d.getDayTripId() == b.getDayTripId()) customerDayTrips.add(d);
+            }
+        }
+
+        System.out.println(customerDayTrips.get(0).getTitle());
+
+        // Add to table
+        fxTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        fxSeatsCol.setCellValueFactory(new PropertyValueFactory<>("availableSeats"));
+        fxDateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        fxDurationCol.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        fxPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        fxActivityCol.setCellValueFactory(new PropertyValueFactory<>("activity"));
+        fxLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        fxLanguageCol.setCellValueFactory(new PropertyValueFactory<>("language"));
+        fxRatingCol.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        fxDateAddedCol.setCellValueFactory(new PropertyValueFactory<>("dateAdded"));
+        fxTable.setItems(dayTrips);
+        fxTable.getColumns().setAll(fxTitleCol, fxSeatsCol, fxDateCol, fxDurationCol, fxPriceCol, fxActivityCol,
+                fxLocationCol, fxLanguageCol, fxRatingCol, fxDateAddedCol);
+
+
+    }
+
+     */
+
+    @FXML
+    private void backButtonHandler(){
+
+    }
+
+    @FXML
+    private void logoutHandler(){
+
+    }
+
+    @FXML
+    private void cancelBookingHandler(){
+
+    }
+
+    @FXML
+    private void changeBookingHandler(){
+
+    }
+
+    @FXML
+    private void giveReviewHandler(){
 
     }
 

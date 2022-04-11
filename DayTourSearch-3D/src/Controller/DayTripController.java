@@ -12,8 +12,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.io.IOException;
@@ -206,9 +211,23 @@ public class DayTripController {
 
 
     @FXML
-    private void myTripsHandler(ActionEvent event) throws IOException {
+    private void myTripsHandler(ActionEvent event) throws Exception {
         System.out.println("My Trips");
-        //CustomerController customerController = new CustomerController(customer,dayTripConn.getDayTrips());
+
+
+
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../View/myTripsView.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        //This line gets the Stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(tableViewScene);
+        window.show();
+
+        //CustomerController tourController = loader.getController();
+        //tourController.initData(trip);
+
+        CustomerController customerController = new CustomerController(customer, dayTripConn.getDayTrips());
 
     }
 
