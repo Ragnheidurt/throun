@@ -56,4 +56,12 @@ public class ReviewDataConnection {
         return reviews;
     }
 
+    public void updateReviews(String update) throws Exception{
+        connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
+        statement = connection.createStatement();
+        statement.executeUpdate(update);
+        statement.close();
+        connection.close();
+    }
+
 }

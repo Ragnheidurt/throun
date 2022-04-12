@@ -7,8 +7,6 @@ public class Booking {
     private final int customerId;
     private final int dayTripId;
     private int numberOfGuests;
-
-
     private String title;
     private int amount;
     private int duration;

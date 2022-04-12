@@ -72,6 +72,7 @@ public class DayTripController {
     private BookingDataConnection bookingDataConn;
     private ObservableList<Booking> bookings;
     private BookingController bookingController;
+    private Boolean loggedIn = false;
 
 
 
@@ -84,8 +85,12 @@ public class DayTripController {
     public void initialize() throws Exception{
         // Get the user info from login system
         // Check if the user has an account, if not then we exit
-        UserLogin login = new UserLogin();
-        Pair<String, String> user = login.getUser();
+        Pair<String, String> user = null;
+        if(!loggedIn) {
+            UserLogin login = new UserLogin();
+            user = login.getUser();
+            loggedIn = true;
+        }
 
         // FÁ TENGINGU VIÐ CUTOMERDATACONNECTION OG ATHUGA HVORT ÞESSI USER ER Í GAGNAGRUNNINUM
         // EF SVO ER ÞÁ BÚUM VIÐ TIL USER HLUT, ANNARS HÆTTUM VIÐ
@@ -152,23 +157,6 @@ public class DayTripController {
         // KANNSKI BETRA AÐ HAFA DIALOG HELDUR EN ALVEG NÝJA SENU??
         // ÞURFUM AMK AÐ GETA KOMIST TIL BAKA AFTUR Í DAYTRIPSEARCHVIEW.FXML
 
-        /*
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getClassLoader().getResource("View/dayTripInfoView.fxml"));
-        Parent parent = loader.load();
-        Scene scene = new Scene(parent);
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-
-        DayTripInfoController tourController = loader.getController();
-        tourController.initData(trip);
-
-         */
-
-
-
-
     }
 
     @FXML
@@ -214,7 +202,6 @@ public class DayTripController {
 
     @FXML
     private void myTripsHandler(ActionEvent event) throws Exception {
-        System.out.println("My Trips");
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("./View/myTripsView.fxml"));
@@ -224,33 +211,8 @@ public class DayTripController {
         window.setScene(scene);
         window.show();
 
-        CustomerController tourController = loader.getController();
-        tourController.initData(customer);
-
-        /*
-        FXMLLoader loader = new FXMLLoader();
-        loader.load(getClass().getResource("../View/myTripsView.fxml"));
-        Parent parent = loader.load();
-        Scene scene = new Scene(parent);
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-
-
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../View/myTripsView.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
-
-        //This line gets the Stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(tableViewScene);
-        window.show();
-
-        //CustomerController customerController = loader.getController();
-        //customerController.initData(customer, dayTripConn.getDayTrips());
-
-        //CustomerController customerController = new CustomerController(customer, dayTripConn.getDayTrips());
-
-         */
+        CustomerController customerController = loader.getController();
+        customerController.initData(customer);
 
     }
 
