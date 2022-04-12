@@ -5,16 +5,17 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root prefHeight="172.0" prefWidth="452.0" type="DialogPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="223.0" prefWidth="452.0" type="DialogPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <header>
-        <HBox prefHeight="45.0" prefWidth="450.0">
+        <HBox prefHeight="60.0" prefWidth="450.0">
             <children>
-                <Label fx:id="fxTitle" prefHeight="45.0" prefWidth="157.0" text="Title" underline="true">
+                <Label fx:id="fxTitle" prefHeight="45.0" prefWidth="250.0" text="Title" underline="true">
                     <HBox.margin>
                         <Insets left="5.0" />
                     </HBox.margin>
@@ -22,32 +23,35 @@
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
+                  <Text fx:id="fxDesrciption" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="200.0">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </Text>
             </children>
         </HBox>
     </header>
-    <content>
-        <HBox prefHeight="96.0" prefWidth="450.0" spacing="20.0">
-            <children>
-                <VBox prefHeight="82.0" prefWidth="127.0" spacing="10.0">
-                    <children>
-                        <Text fx:id="fxDesrciption" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
-                    </children>
-                </VBox>
-                <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
-                    <children>
-                        <Label text="Number of seats" />
-                        <ComboBox fx:id="fxNumberOfGuests" onAction="#updateAmount" prefHeight="25.0" prefWidth="150.0" promptText="Number of seats" />
-                    </children>
-                </VBox>
-                <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
-                    <children>
-                        <Label prefHeight="17.0" prefWidth="79.0" text="Price" />
-                        <Label fx:id="fxAmount" prefHeight="17.0" prefWidth="87.0" text="Label" />
-                    </children>
-                </VBox>
-            </children>
-        </HBox>
-    </content>
-    <ButtonType fx:id="fxBook" buttonData="OK_DONE" text="Book" />
+    <ButtonType fx:id="fxBook" buttonData="OK_DONE" text="Confirm" />
     <ButtonType fx:id="fxCancel" buttonData="CANCEL_CLOSE" text="Cancel" />
+   <content>
+      <VBox prefHeight="140.0" prefWidth="452.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="64.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="60.0" text="Review:" />
+                  <TextArea fx:id="fxReview" prefHeight="39.0" prefWidth="193.0" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="432.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="60.0" text="Rating:" />
+                  <ComboBox fx:id="fxRating" prefHeight="25.0" prefWidth="65.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </content>
 </fx:root>
