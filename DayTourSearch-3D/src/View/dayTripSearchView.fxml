@@ -12,9 +12,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1065.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DayTripController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DayTripController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="243.0">
+      <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="281.0">
          <children>
             <Label alignment="CENTER" prefHeight="48.0" prefWidth="242.0" text="Searching criteria">
                <font>
@@ -24,7 +24,11 @@
             <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="243.0">
                <children>
                   <Label alignment="CENTER" prefHeight="40.0" prefWidth="85.0" text="Date:" />
-                  <DatePicker fx:id="fxDate" prefHeight="25.0" prefWidth="115.0" />
+                  <DatePicker fx:id="fxDate" prefHeight="25.0" prefWidth="115.0">
+                     <HBox.margin>
+                        <Insets right="8.0" />
+                     </HBox.margin></DatePicker>
+                  <Button mnemonicParsing="false" onAction="#clearDatePickerHandler" text="Clear" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="243.0">
