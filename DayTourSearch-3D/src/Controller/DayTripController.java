@@ -7,7 +7,6 @@ import Model.Booking;
 import Model.Customer;
 import Model.DayTrip;
 import View.DayTripInfo;
-import View.UserLogin;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -249,6 +247,11 @@ public class DayTripController {
     private void logoutHandler(ActionEvent event) throws IOException {
         System.out.println("Logout");
 
+    }
+
+    @FXML
+    private void clearDatePickerHandler(ActionEvent event){
+        fxDate.setValue(null);
     }
 
 

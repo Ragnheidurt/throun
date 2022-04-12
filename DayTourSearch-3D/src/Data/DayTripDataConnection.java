@@ -155,4 +155,26 @@ public class DayTripDataConnection {
         connection.close();
     }
 
+    public DayTrip getDayTrip(int dayTripId) throws Exception{
+        connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
+        statement  = connection.createStatement();
+        ResultSet rs = statement.executeQuery("SELECT * FROM dayTrips WHERE dayTripId = " +
+                dayTripId + ";");
+        dayTripId = rs.getInt("dayTripId");
+        String title = rs.getString("title");
+        int price = rs.getInt("price");
+        int duration = rs.getInt("duration");
+        LocalDate date = LocalDate.parse(rs.getString("dateStart"));
+        LocalTime startTime = LocalTime.now(); //Þarf að fiffa
+        int availableSeats = rs.getInt("availableSeats");
+        String language = rs.getString("languageSpoken");
+        String location = rs.getString("location"); //Þarf að fiffa
+        String activity = rs.getString("activity");
+        String description = rs.getString("description");
+        LocalDate dateAdded = LocalDate.parse(rs.getString("dateAdded"));
+        DayTrip trip = new DayTrip(dayTripId, title, price, duration,date, startTime,  availableSeats,
+                language, location, activity, dateAdded, description);
+        return trip;
+    }
+
 }
