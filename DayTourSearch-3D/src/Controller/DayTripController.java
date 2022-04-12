@@ -22,6 +22,8 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class DayTripController {
 
@@ -183,7 +185,7 @@ public class DayTripController {
         dayTripConn.updateTrip(update);
 
         Boolean hasBooked = false;
-        Booking oldBooking = new Booking(0,0,0);
+        Booking oldBooking = new Booking(0,0,0,"",0,0, LocalDate.now(), LocalTime.now(),"","","","");
         for(Booking b : customer.getBookings()){
             if(b.getDayTripId() == booking.getDayTripId()){
                 hasBooked = true;

@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 
 import java.io.File;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 public class BookingDataConnection {
@@ -43,15 +45,48 @@ public class BookingDataConnection {
     public ObservableList<Booking> getBookings(int customerId) throws Exception{
         connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
         statement = connection.createStatement();
+        Statement statement2 = connection.createStatement();
+        Statement statement3 = connection.createStatement();
         String query = "SELECT * FROM BOOKINGS WHERE customerId = " + customerId + ";";
         ResultSet rs = statement.executeQuery(query);
         ObservableList<Booking> bookings = FXCollections.observableArrayList();
+        int dayTripId; int numberOfGuests; String title; int amount; int duration; String description;
+        double myRating; LocalDate date; LocalTime startTime; String language; String location; String activity;
+        String myReview;
+        ResultSet dayTripQuery;
+        ResultSet reviewQuery;
         while (rs.next()){
-            Booking booking = new Booking(rs.getInt("customerId"),
-                    rs.getInt("dayTripId"),rs.getInt("numberOfGuests"));
+            dayTripId = rs.getInt("dayTripId");
+
+            numberOfGuests = rs.getInt("numberOfGuests");
+            dayTripQuery = statement2.executeQuery("SELECT * FROM daytrips WHERE dayTripId = " + dayTripId + ";");
+            title = dayTripQuery.getString("title");
+            amount = numberOfGuests*dayTripQuery.getInt("price");
+            duration = dayTripQuery.getInt("duration");
+            description = dayTripQuery.getString("description");
+            date = LocalDate.parse(dayTripQuery.getString("dateStart"));
+            startTime = LocalTime.parse(dayTripQuery.getString("startTime"));
+            language = dayTripQuery.getString("languageSpoken");
+            location = dayTripQuery.getString("location");
+            activity = dayTripQuery.getString("activity");
+            reviewQuery = statement3.executeQuery("SELECT * FROM reviews WHERE customerId = " + customerId +
+                    " AND dayTripId = " + dayTripId + ";");
+
+            Booking booking = new Booking(customerId,dayTripId,numberOfGuests,title,amount,
+                    duration,date,startTime,language,location,activity,description);
+
+            if(reviewQuery.next()) {
+                myRating = reviewQuery.getInt("rating");
+                myReview = reviewQuery.getString("review");
+                booking.setRating(myRating);
+                booking.setReview(myReview);
+            }
+
             bookings.add(booking);
         }
         statement.close();
+        statement2.close();
+        statement3.close();
         connection.close();
         return bookings;
     }

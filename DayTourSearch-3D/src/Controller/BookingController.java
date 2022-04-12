@@ -65,7 +65,11 @@ public class BookingController extends DialogPane {
         // Callback hefur eina aðferð og við endurforritum hana
         d.setResultConverter(b -> {                                 // b er af taginu ButtonType
             if (b.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-                return new Booking(customer.getCustomerId(), trip.getDayTripId(), fxNumberOfGuests.getValue());
+                Booking booking = new Booking(customer.getCustomerId(), trip.getDayTripId(), fxNumberOfGuests.getValue(),
+                        trip.getTitle(), trip.getPrice()* fxNumberOfGuests.getValue(), trip.getDuration(),
+                        trip.getDate(), trip.getStartTime(), trip.getLanguage(), trip.getLocation(),
+                        trip.getActivity(),trip.getDescription());
+                return booking;
             } else {
                 return null;
             }
