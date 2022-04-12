@@ -174,6 +174,8 @@ public class DayTripDataConnection {
         LocalDate dateAdded = LocalDate.parse(rs.getString("dateAdded"));
         DayTrip trip = new DayTrip(dayTripId, title, price, duration,date, startTime,  availableSeats,
                 language, location, activity, dateAdded, description);
+        statement.close();
+        connection.close();
         return trip;
     }
 

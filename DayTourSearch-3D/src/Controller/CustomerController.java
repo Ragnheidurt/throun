@@ -5,6 +5,7 @@ import Data.DayTripDataConnection;
 import Data.ReviewDataConnection;
 import Model.Booking;
 import Model.Customer;
+import View.ChangeBooking;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -133,7 +134,13 @@ public class CustomerController {
     }
 
     @FXML
-    private void changeBookingHandler(){
+    private void changeBookingHandler() throws Exception{
+        Booking booking = fxTable.getSelectionModel().getSelectedItem();
+        ChangeBooking changeBooking = new ChangeBooking(booking);
+        changeBooking.changeBooking();
+        fxTable.getItems().clear();
+        ObservableList<Booking> b = FXCollections.observableArrayList(customer.getBookings());
+        fxTable.setItems(b);
 
     }
 
