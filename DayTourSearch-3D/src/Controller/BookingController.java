@@ -36,13 +36,14 @@ public class BookingController extends DialogPane {
         }
 
         fxTitle.setText(trip.getTitle());
-        fxAvailableSeats.setText(String.valueOf(trip.getAvailableSeats()));
-        fxPrice.setText(String.valueOf(trip.getPrice()));
+        fxAvailableSeats.setText("Available seats: " + String.valueOf(trip.getAvailableSeats()));
+        fxPrice.setText("Price: " + String.valueOf(trip.getPrice()) + " kr");
 
         for(int i = 1; i <= trip.getAvailableSeats(); i++){
             fxNumberOfGuests.getItems().add(i);
         }
         fxNumberOfGuests.setValue(1);
+        fxAmount.setText(String.valueOf(trip.getPrice()) + " kr");
     }
 
     @FXML

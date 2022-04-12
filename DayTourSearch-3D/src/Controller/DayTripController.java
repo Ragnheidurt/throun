@@ -7,6 +7,7 @@ import Model.Booking;
 import Model.Customer;
 import Model.DayTrip;
 import View.DayTripInfo;
+import View.UserLogin;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,8 +19,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -70,12 +71,22 @@ public class DayTripController {
     private BookingDataConnection bookingDataConn;
     private ObservableList<Booking> bookings;
     private BookingController bookingController;
-    private  Customer customer;
+    private Customer customer;
 
 
 
     public void initData(Customer customer) throws Exception{
-        this.customer = customer;
+        if(customer == null) {
+            UserLogin login = new UserLogin();
+            Pair<String, String> user = login.getUser();
+            CustomerDataConnection customerConnection = new CustomerDataConnection();
+            this.customer = customerConnection.getCustomer(user.getKey(), user.getValue());
+            System.out.printf(this.customer.getUsername());
+        }
+        else {
+            this.customer = customer;
+        }
+
 
 
 
@@ -96,7 +107,7 @@ public class DayTripController {
 
         customerConn = new CustomerDataConnection();
         //customer = customerConn.getCustomer(user.getKey(),user.getValue());
-        fxCustomer.setText(customer.getUsername());
+        fxCustomer.setText(this.customer.getUsername());
 
         // FÁ TENGINGU VIÐ BOOKINGDATACONNECTION OG BÆTA VIÐ FERÐUM ÞESSA CUSTOMERS
 
@@ -173,7 +184,7 @@ public class DayTripController {
 
         Boolean hasBooked = false;
         Booking oldBooking = new Booking(0,0,0,"",0,0, LocalDate.now(), LocalTime.now(),"","","","");
-        for(Booking b : customer.getBookings()){
+        for(Booking b : this.customer.getBookings()){
             if(b.getDayTripId() == booking.getDayTripId()){
                 hasBooked = true;
                 oldBooking = b;
@@ -187,10 +198,10 @@ public class DayTripController {
             bookingDataConn.insertBooking(updateBooking);
         }
         else{
-            String insertBooking = "INSERT INTO BOOKINGS VALUES(" + customer.getCustomerId() + ","
+            String insertBooking = "INSERT INTO BOOKINGS VALUES(" + this.customer.getCustomerId() + ","
                     + trip.getDayTripId() + "," + booking.getNumberOfGuests() + ");";
             bookingDataConn.insertBooking(insertBooking);
-            customer.addBooking(booking);
+            this.customer.addBooking(booking);
         }
         searchHandler(null);
 
@@ -211,7 +222,7 @@ public class DayTripController {
         window.show();
 
         CustomerController customerController = loader.getController();
-        customerController.initData(customer);
+        customerController.initData(this.customer);
 
     }
 
@@ -232,8 +243,6 @@ public class DayTripController {
         query += language.equals("") ? "Like '%'" : ("= '" + language + "'");
         query += ";";
 
-        System.out.println(query);
-
         ObservableList<DayTrip> filteredTrips = dayTripConn.filterDayTrips(query);
         for(DayTrip trip : filteredTrips) System.out.println(trip.getTitle() + " " + trip.getRating());
         fxTable.getItems().clear();
@@ -244,9 +253,10 @@ public class DayTripController {
     }
 
     @FXML
-    private void logoutHandler(ActionEvent event) throws IOException {
-        System.out.println("Logout");
-
+    private void logoutHandler(ActionEvent event) throws Exception {
+        fxTable.getItems().clear();
+        fxCustomer.setText("");
+        initData(null);
     }
 
     @FXML

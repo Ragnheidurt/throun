@@ -6,6 +6,7 @@ import Data.ReviewDataConnection;
 import Model.Booking;
 import Model.Customer;
 import View.ChangeBooking;
+import View.GiveReview;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -104,7 +105,18 @@ public class CustomerController {
     }
 
     @FXML
-    private void logoutHandler(){
+    private void logoutHandler(ActionEvent event) throws Exception{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getClassLoader().getResource("./View/dayTripSearchView.fxml"));
+        Parent parent = loader.load();
+        Scene scene = new Scene(parent);
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+
+        DayTripController dayTripController = loader.getController();
+        this.customer = null;
+        dayTripController.initData(this.customer);
 
     }
 
@@ -145,8 +157,13 @@ public class CustomerController {
     }
 
     @FXML
-    private void giveReviewHandler(){
-
+    private void giveReviewHandler() throws Exception{
+        Booking booking = fxTable.getSelectionModel().getSelectedItem();
+        GiveReview giveReview = new GiveReview(booking);
+        giveReview.giveReview();
+        fxTable.getItems().clear();
+        ObservableList<Booking> b = FXCollections.observableArrayList(customer.getBookings());
+        fxTable.setItems(b);
     }
 
 
