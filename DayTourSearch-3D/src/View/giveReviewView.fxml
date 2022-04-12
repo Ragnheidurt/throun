@@ -23,7 +23,7 @@
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                  <Text fx:id="fxDesrciption" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="200.0">
+                  <Text fx:id="fxDescription" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="200.0">
                <HBox.margin>
                   <Insets top="5.0" />
                </HBox.margin>
