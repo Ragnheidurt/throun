@@ -30,7 +30,7 @@
             <children>
                 <VBox prefHeight="82.0" prefWidth="127.0" spacing="10.0">
                <children>
-                  <Text fx:id="fxDescription" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                  <Text fx:id="fxDescription" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="130.0" />
                </children>
                 </VBox>
                 <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
