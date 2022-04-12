@@ -68,11 +68,12 @@ public class DayTripController {
     private ObservableList<DayTrip> dayTrips;
     private DayTripDataConnection dayTripConn;
     private CustomerDataConnection customerConn;
-    private Customer customer;
+    //private Customer customer;
     private BookingDataConnection bookingDataConn;
     private ObservableList<Booking> bookings;
     private BookingController bookingController;
-    private Boolean loggedIn = false;
+    private  Customer customer;
+
 
 
 
@@ -85,12 +86,10 @@ public class DayTripController {
     public void initialize() throws Exception{
         // Get the user info from login system
         // Check if the user has an account, if not then we exit
-        Pair<String, String> user = null;
-        if(!loggedIn) {
-            UserLogin login = new UserLogin();
-            user = login.getUser();
-            loggedIn = true;
-        }
+
+        UserLogin login = new UserLogin();
+        Pair<String,String> user = login.getUser();
+
 
         // FÁ TENGINGU VIÐ CUTOMERDATACONNECTION OG ATHUGA HVORT ÞESSI USER ER Í GAGNAGRUNNINUM
         // EF SVO ER ÞÁ BÚUM VIÐ TIL USER HLUT, ANNARS HÆTTUM VIÐ

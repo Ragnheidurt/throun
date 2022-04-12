@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 
 public class Customer {
+
     private final int customerId;
     private ArrayList<Booking> bookings = new ArrayList<Booking>();
     private String password;
@@ -13,6 +14,7 @@ public class Customer {
         this.password = password;
         this.username = username;
     }
+
 
     public String getUsername() {
         return username;
