@@ -28,76 +28,56 @@ public class CustomerController {
     @FXML
     private Label fxCustomer;
     @FXML
-    private TableView fxTable;
+    private TableView<Booking> fxTable;
     @FXML
-    private TableColumn<DayTrip, String> fxTitleCol;
+    private TableColumn<Booking, String> fxTitleCol;
     @FXML
     private TableColumn<Booking, Integer> fxSeatsCol;
     @FXML
-    private TableColumn<DayTrip, String> fxDateCol;
-    /*
+    private TableColumn<Booking, Integer> fxAmountCol;
     @FXML
-    private TableColumn<DayTrip, Integer> fxDurationCol;
+    private TableColumn<Booking, String> fxDateCol;
     @FXML
-    private TableColumn<DayTrip, Integer> fxPriceCol;
+    private TableColumn<Booking, String> fxTimeCol;
     @FXML
-    private TableColumn<DayTrip, String> fxActivityCol;
+    private TableColumn<Booking, Integer> fxDurationCol;
     @FXML
-    private TableColumn<DayTrip, String> fxLocationCol;
+    private TableColumn<Booking, String> fxActivityCol;
     @FXML
-    private TableColumn<DayTrip, String> fxLanguageCol;
+    private TableColumn<Booking, String> fxLocationCol;
     @FXML
-    private TableColumn<DayTrip, Integer> fxRatingCol;
+    private TableColumn<Booking, String> fxLanguageCol;
     @FXML
-    private TableColumn<DayTrip, String> fxDateAddedCol;
+    private TableColumn<Booking, Integer> fxMyRatingCol;
 
-     */
 
     // Data attributes
     private ObservableList<DayTrip> customerDayTrips = FXCollections.observableArrayList();
     private Customer customer;
     private ObservableList<DayTrip> dayTrips;
 
-    public CustomerController(){
-        System.out.println("Hér");
-    }
 
-    public void initData(Customer customer, ObservableList<DayTrip> dayTrips){
+    public void initData(Customer customer){
         fxCustomer.setText(customer.getUsername());
 
-        System.out.println(customer.getUsername());
-
-
-        //
+        // Get this cutomers bookings
         ArrayList<Booking> bookings = customer.getBookings();
-        for(DayTrip d : dayTrips){
-            for(Booking b : bookings){
-                if(d.getDayTripId() == b.getDayTripId()) customerDayTrips.add(d);
-            }
-        }
-
-        System.out.println(customerDayTrips.get(0).getTitle());
-
         ObservableList<Booking> b = FXCollections.observableArrayList(bookings);
 
         // Add to table
         fxTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         fxSeatsCol.setCellValueFactory(new PropertyValueFactory<>("numberOfGuests"));
+        fxAmountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
         fxDateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-        /*
+        fxTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         fxDurationCol.setCellValueFactory(new PropertyValueFactory<>("duration"));
-        fxPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         fxActivityCol.setCellValueFactory(new PropertyValueFactory<>("activity"));
         fxLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
         fxLanguageCol.setCellValueFactory(new PropertyValueFactory<>("language"));
-        fxRatingCol.setCellValueFactory(new PropertyValueFactory<>("rating"));
-        fxDateAddedCol.setCellValueFactory(new PropertyValueFactory<>("dateAdded"));
-
-         */
+        fxMyRatingCol.setCellValueFactory(new PropertyValueFactory<>("rating"));
         fxTable.setItems(b);
-        fxTable.getColumns().setAll(fxTitleCol, fxSeatsCol, fxDateCol);
-        //fxTable.getColumns().setAll(fxTitleCol, fxSeatsCol, fxDateCol, fxDurationCol, fxPriceCol, fxActivityCol,
-          //      fxLocationCol, fxLanguageCol, fxRatingCol, fxDateAddedCol);
+        fxTable.getColumns().setAll(fxTitleCol, fxSeatsCol, fxAmountCol, fxDateCol, fxTimeCol, fxDurationCol,
+                fxActivityCol, fxLocationCol, fxLanguageCol, fxMyRatingCol);
 
     }
     /*

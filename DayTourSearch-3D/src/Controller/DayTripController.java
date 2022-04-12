@@ -225,7 +225,7 @@ public class DayTripController {
         window.show();
 
         CustomerController tourController = loader.getController();
-        tourController.initData(customer, dayTripConn.getDayTrips());
+        tourController.initData(customer);
 
         /*
         FXMLLoader loader = new FXMLLoader();

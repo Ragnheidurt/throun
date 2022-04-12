@@ -47,7 +47,7 @@
                     <columns>
                         <TableColumn fx:id="fxTitleCol" prefWidth="100.0" sortable="false" text="Title" />
                         <TableColumn fx:id="fxSeatsCol" prefWidth="100.0" sortable="false" text="Number of seats" />
-                        <TableColumn fx:id="fxPriceCol" prefWidth="75.0" text="Amount" />
+                        <TableColumn fx:id="fxAmountCol" prefWidth="75.0" text="Amount" />
                         <TableColumn fx:id="fxDateCol" prefWidth="75.0" text="Date" />
                   <TableColumn fx:id="fxTimeCol" prefWidth="75.0" text="Time" />
                         <TableColumn fx:id="fxDurationCol" prefWidth="75.0" text="Duration" />
