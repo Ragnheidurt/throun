@@ -1,6 +1,7 @@
 package Controller;
 
 import Data.BookingDataConnection;
+import Data.DayTripDataConnection;
 import Data.ReviewDataConnection;
 import Model.Booking;
 import Model.Customer;
@@ -61,6 +62,10 @@ public class CustomerController {
         ArrayList<Booking> bookings = customer.getBookings();
         ObservableList<Booking> b = FXCollections.observableArrayList(bookings);
 
+        for(Booking boooking : bookings){
+            System.out.println(boooking.getDayTripId());
+        }
+
         // Add to table
         fxTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         fxSeatsCol.setCellValueFactory(new PropertyValueFactory<>("numberOfGuests"));
@@ -72,6 +77,7 @@ public class CustomerController {
         fxLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
         fxLanguageCol.setCellValueFactory(new PropertyValueFactory<>("language"));
         fxMyRatingCol.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        fxTable.getItems().clear();
         fxTable.setItems(b);
         fxTable.getColumns().setAll(fxTitleCol, fxSeatsCol, fxAmountCol, fxDateCol, fxTimeCol, fxDurationCol,
                 fxActivityCol, fxLocationCol, fxLanguageCol, fxMyRatingCol);
@@ -90,6 +96,9 @@ public class CustomerController {
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
+
+        DayTripController dayTripController = loader.getController();
+        dayTripController.initData(customer);
 
     }
 
@@ -112,6 +121,10 @@ public class CustomerController {
             String removeReview = "DELETE FROM reviews WHERE dayTripId = " + booking.getDayTripId() +
                     " AND customerId = " + customer.getCustomerId() + ";";
             reviewDataConn.updateReviews(removeReview);
+            DayTripDataConnection dayTripDataConn = new DayTripDataConnection();
+            String addTrips = "UPDATE dayTrips SET availableSeats = availableSeats + " + booking.getNumberOfGuests()
+                    + " WHERE dayTripId = " + booking.getDayTripId() + ";";
+            dayTripDataConn.updateTrip(addTrips);
             fxTable.getItems().clear();
             ObservableList<Booking> b = FXCollections.observableArrayList(customer.getBookings());
             fxTable.setItems(b);

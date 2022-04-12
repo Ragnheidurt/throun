@@ -76,33 +76,35 @@ public class DayTripController {
 
 
 
+    public void initData(Customer customer) throws Exception{
+        this.customer = customer;
 
 
 
     /**
      * Interface initialized and day trip data added to table.
      */
-    @FXML
-    public void initialize() throws Exception{
+    //@FXML
+    //public void initialize() throws Exception{
         // Get the user info from login system
         // Check if the user has an account, if not then we exit
 
-        UserLogin login = new UserLogin();
-        Pair<String,String> user = login.getUser();
+        //UserLogin login = new UserLogin();
+        //Pair<String,String> user = login.getUser();
 
 
         // FÁ TENGINGU VIÐ CUTOMERDATACONNECTION OG ATHUGA HVORT ÞESSI USER ER Í GAGNAGRUNNINUM
         // EF SVO ER ÞÁ BÚUM VIÐ TIL USER HLUT, ANNARS HÆTTUM VIÐ
 
         customerConn = new CustomerDataConnection();
-        customer = customerConn.getCustomer(user.getKey(),user.getValue());
+        //customer = customerConn.getCustomer(user.getKey(),user.getValue());
         fxCustomer.setText(customer.getUsername());
 
         // FÁ TENGINGU VIÐ BOOKINGDATACONNECTION OG BÆTA VIÐ FERÐUM ÞESSA CUSTOMERS
 
         bookingDataConn = new BookingDataConnection();
-        bookings = bookingDataConn.getBookings(customer.getCustomerId());
-        for(Booking booking : bookings) customer.addBooking(booking);
+        //bookings = bookingDataConn.getBookings(customer.getCustomerId());
+        //for(Booking booking : bookings) customer.addBooking(booking);
 
 
         // Items to combobox
