@@ -22,7 +22,6 @@ public class DayTripDataConnection {
         connection = null;
         statement = null;
 
-
         try {
             File sql = new File(SQL_PATH);
             if (!sql.exists()) {
@@ -34,7 +33,6 @@ public class DayTripDataConnection {
             statement = connection.createStatement();
             statement.close();
             connection.close();
-
 
         } catch (SQLException err) {
             System.err.println(err.getMessage());

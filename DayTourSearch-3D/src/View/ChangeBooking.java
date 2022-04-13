@@ -17,6 +17,7 @@ import java.util.Optional;
 
 public class ChangeBooking extends DialogPane {
 
+    // Interface attributes
     @FXML
     private Label fxTitle;
     @FXML
@@ -26,12 +27,11 @@ public class ChangeBooking extends DialogPane {
     @FXML
     private Label fxAmount;
 
+    // Data attributes
     private ReviewDataConnection reviewDataConn;
     private ObservableList<Review> reviews;
     private Booking booking;
     private DayTrip dayTrip;
-
-
 
 
     public ChangeBooking(Booking booking) throws Exception{

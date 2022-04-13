@@ -37,7 +37,6 @@ public class Main extends Application {
             return;
         }
 
-
         // Load and show the interface of the search engine
         FXMLLoader loader = new FXMLLoader(getClass().getResource("dayTripSearchView.fxml"));
         Parent root = loader.load();

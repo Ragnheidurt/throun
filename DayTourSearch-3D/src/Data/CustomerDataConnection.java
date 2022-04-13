@@ -4,22 +4,17 @@ import Model.Customer;
 
 import java.io.File;
 import java.sql.*;
-import java.util.Scanner;
 
 public class CustomerDataConnection {
     private static final String SQL_PATH = "DayTourSearch-3D/src/Data" + File.separator + "schema.sql";
     private static final String DB_PATH = "DayTourSearch-3D/src/Data" + File.separator + "dataBases.db";
     private Connection connection;
     private Statement statement;
-    private Scanner read;
-    private String command;
 
     public CustomerDataConnection() throws Exception{
         Class.forName("org.sqlite.JDBC");
         connection = null;
         statement = null;
-        read = null;
-        command = null;
 
         try {
             File sql = new File(SQL_PATH);
