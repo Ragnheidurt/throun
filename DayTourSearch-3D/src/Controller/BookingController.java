@@ -18,6 +18,7 @@ public class BookingController extends DialogPane {
     @FXML
     private ComboBox<Integer> fxNumberOfGuests;
 
+    // Data attributes
     private DayTrip trip;
     private Customer customer;
 
@@ -28,7 +29,7 @@ public class BookingController extends DialogPane {
         // Read .fxml
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/bookingView.fxml"));
         fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this); // controller
+        fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
         } catch (IOException exception) {

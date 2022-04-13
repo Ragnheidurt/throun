@@ -46,12 +46,9 @@ public class Main extends Application {
         primaryStage.show();
 
         // Get this customers bookings from db to the customers instance
-        /*
         BookingDataConnection bookingDataConn = new BookingDataConnection();
         ObservableList<Booking> bookings = bookingDataConn.getBookings(customer.getCustomerId());
         for(Booking booking : bookings) customer.addBooking(booking);
-
-         */
 
         // Initialize the search engine interface and attributes for this customer
         DayTripController dayTripController = loader.getController();

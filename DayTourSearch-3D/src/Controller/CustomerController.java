@@ -51,22 +51,16 @@ public class CustomerController {
     @FXML
     private TableColumn<Booking, Integer> fxMyRatingCol;
 
-
     // Data attributes
     private Customer customer;
 
 
     public void initData(Customer customer){
-        fxCustomer.setText(customer.getUsername());
         this.customer = customer;
+        fxCustomer.setText(customer.getUsername());
 
-        // Get this cutomers bookings
-        ArrayList<Booking> bookings = customer.getBookings();
-        ObservableList<Booking> b = FXCollections.observableArrayList(bookings);
-
-        for(Booking boooking : bookings){
-            System.out.println(boooking.getDayTripId());
-        }
+        // Get this customers bookings
+        ObservableList<Booking> bookings = FXCollections.observableArrayList(customer.getBookings());
 
         // Add to table
         fxTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -80,7 +74,7 @@ public class CustomerController {
         fxLanguageCol.setCellValueFactory(new PropertyValueFactory<>("language"));
         fxMyRatingCol.setCellValueFactory(new PropertyValueFactory<>("rating"));
         fxTable.getItems().clear();
-        fxTable.setItems(b);
+        fxTable.setItems(bookings);
         fxTable.getColumns().setAll(fxTitleCol, fxSeatsCol, fxAmountCol, fxDateCol, fxTimeCol, fxDurationCol,
                 fxActivityCol, fxLocationCol, fxLanguageCol, fxMyRatingCol);
 
@@ -90,7 +84,6 @@ public class CustomerController {
 
     @FXML
     private void backButtonHandler(ActionEvent event) throws Exception{
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("./View/dayTripSearchView.fxml"));
         Parent parent = loader.load();
@@ -101,7 +94,6 @@ public class CustomerController {
 
         DayTripController dayTripController = loader.getController();
         dayTripController.initData(customer);
-
     }
 
     @FXML
@@ -115,9 +107,7 @@ public class CustomerController {
         window.show();
 
         DayTripController dayTripController = loader.getController();
-        customer = null;
-        dayTripController.initData(customer);
-
+        dayTripController.initData(null);   // Set customer as null to get login dialog
     }
 
     @FXML
@@ -151,9 +141,8 @@ public class CustomerController {
         ChangeBooking changeBooking = new ChangeBooking(booking);
         changeBooking.changeBooking();
         fxTable.getItems().clear();
-        ObservableList<Booking> b = FXCollections.observableArrayList(customer.getBookings());
-        fxTable.setItems(b);
-
+        ObservableList<Booking> bookings = FXCollections.observableArrayList(customer.getBookings());
+        fxTable.setItems(bookings);
     }
 
     @FXML

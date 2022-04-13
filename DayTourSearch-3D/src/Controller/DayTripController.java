@@ -95,15 +95,14 @@ public class DayTripController {
                 if (user != null) {
                     customer = customerConn.getCustomer(user.getKey(), user.getValue());
                     if (customer != null) {
+                        // Get this customers bookings from db to the customers instance
+                        ObservableList<Booking> bookings = bookingDataConn.getBookings(customer.getCustomerId());
+                        for(Booking booking : bookings) customer.addBooking(booking);
                         break;
                     }
                 }
             }
         }
-
-        // Get this customers bookings from db to the customers instance
-        ObservableList<Booking> bookings = bookingDataConn.getBookings(customer.getCustomerId());
-        for(Booking booking : bookings) customer.addBooking(booking);
 
         // See what user is logged in
         fxCustomer.setText(customer.getUsername());
@@ -150,12 +149,15 @@ public class DayTripController {
 
     @FXML
     private void bookTripHandler(ActionEvent event) throws Exception {
+        // When booking a trip you already have a booking for, the new booking adds onto the old one
+
         DayTrip trip = fxTable.getSelectionModel().getSelectedItem();
 
         bookingController = new BookingController(trip,customer);
         Booking booking = bookingController.getBooking();
         if(booking == null) return;
 
+        // Update available seats for this trip
         String update = "UPDATE dayTrips SET availableSeats = availableSeats - " + booking.getNumberOfGuests()
             + " WHERE dayTripId = " + trip.getDayTripId() + ";";
         dayTripConn.updateTrip(update);
@@ -190,7 +192,7 @@ public class DayTripController {
 
     @FXML
     private void myTripsHandler(ActionEvent event) throws Exception {
-
+        // Load interface for this customers trips
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("./View/myTripsView.fxml"));
         Parent parent = loader.load();
@@ -201,8 +203,6 @@ public class DayTripController {
 
         CustomerController customerController = loader.getController();
         customerController.initData(customer);
-        //Fyrir valgeir vesaling
-
     }
 
     @FXML
@@ -238,7 +238,7 @@ public class DayTripController {
     private void logoutHandler(ActionEvent event) throws Exception {
         fxTable.getItems().clear();
         fxCustomer.setText("");
-        initData(null);
+        initData(null);   // Set customer as null to get login dialog
     }
 
     @FXML
