@@ -223,6 +223,7 @@ public class DayTripController {
 
         CustomerController customerController = loader.getController();
         customerController.initData(this.customer);
+        //Fyrir valgeir vesaling
 
     }
 
