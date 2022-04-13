@@ -24,16 +24,18 @@ public class Main extends Application {
         UserLogin login = new UserLogin();
         Pair<String, String> user = login.getUser();
         // If pressed cancel or invalid user, then login system reappears
-        //if(user != null){
+        if(user != null){
             CustomerDataConnection customerConnection = new CustomerDataConnection();
             customer = customerConnection.getCustomer(user.getKey(), user.getValue());
-          //  if(customer == null){
-                //start(primaryStage);
-          //  }
-        //}
-        //else{
-            //start(primaryStage);
-        //}
+            if(customer == null){
+                start(primaryStage);
+                return;
+            }
+        }
+        else{
+            start(primaryStage);
+            return;
+        }
 
 
         // Load and show the interface of the search engine
@@ -44,9 +46,12 @@ public class Main extends Application {
         primaryStage.show();
 
         // Get this customers bookings from db to the customers instance
+        /*
         BookingDataConnection bookingDataConn = new BookingDataConnection();
         ObservableList<Booking> bookings = bookingDataConn.getBookings(customer.getCustomerId());
         for(Booking booking : bookings) customer.addBooking(booking);
+
+         */
 
         // Initialize the search engine interface and attributes for this customer
         DayTripController dayTripController = loader.getController();

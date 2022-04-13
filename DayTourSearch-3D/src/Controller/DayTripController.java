@@ -76,28 +76,37 @@ public class DayTripController {
     /**
      * Interface initialized and day trip data added to table.
      */
-    public void initData(Customer customer) throws Exception{
+    public void initData(Customer cust) throws Exception{
         // Connection to db
         dayTripConn = new DayTripDataConnection();
         customerConn = new CustomerDataConnection();
         bookingDataConn = new BookingDataConnection();
 
+        // Set attribute customer
+        customer = cust;
+
         // Handling of the logout phase - customer is null if no one is logged in
         if(customer == null) {
             UserLogin login = new UserLogin();
-            Pair<String, String> user = login.getUser();
-            //customerConn = new CustomerDataConnection();
-            customer = customerConn.getCustomer(user.getKey(), user.getValue());
-            this.customer = customer;
-            System.out.println(this.customer.getUsername());
+            Pair<String, String> user;
+            // Handling illegal users and cancel button pressed
+            while(true) {
+                user = login.getUser();
+                if (user != null) {
+                    customer = customerConn.getCustomer(user.getKey(), user.getValue());
+                    if (customer != null) {
+                        break;
+                    }
+                }
+            }
+        }
 
-        }
-        else {
-            this.customer = customer;
-        }
+        // Get this customers bookings from db to the customers instance
+        ObservableList<Booking> bookings = bookingDataConn.getBookings(customer.getCustomerId());
+        for(Booking booking : bookings) customer.addBooking(booking);
 
         // See what user is logged in
-        fxCustomer.setText(this.customer.getUsername());
+        fxCustomer.setText(customer.getUsername());
 
         // Items to combobox
         fxActivity.setItems(FXCollections.observableArrayList("", "Fjallganga", "Sigling", "Skíði", "Köfun"));
@@ -153,7 +162,7 @@ public class DayTripController {
 
         Boolean hasBooked = false;
         Booking oldBooking = new Booking(0,0,0,"",0,0, LocalDate.now(), LocalTime.now(),"","","","");
-        for(Booking b : this.customer.getBookings()){
+        for(Booking b : customer.getBookings()){
             if(b.getDayTripId() == booking.getDayTripId()){
                 hasBooked = true;
                 oldBooking = b;
@@ -167,10 +176,10 @@ public class DayTripController {
             bookingDataConn.insertBooking(updateBooking);
         }
         else{
-            String insertBooking = "INSERT INTO BOOKINGS VALUES(" + this.customer.getCustomerId() + ","
+            String insertBooking = "INSERT INTO BOOKINGS VALUES(" + customer.getCustomerId() + ","
                     + trip.getDayTripId() + "," + booking.getNumberOfGuests() + ");";
             bookingDataConn.insertBooking(insertBooking);
-            this.customer.addBooking(booking);
+            customer.addBooking(booking);
         }
         searchHandler(null);
 
@@ -191,7 +200,7 @@ public class DayTripController {
         window.show();
 
         CustomerController customerController = loader.getController();
-        customerController.initData(this.customer);
+        customerController.initData(customer);
         //Fyrir valgeir vesaling
 
     }

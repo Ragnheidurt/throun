@@ -55,7 +55,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Line>
-            <Label fx:id="fxCustomer" alignment="CENTER" prefHeight="25.0" prefWidth="240.0" text="username (custId)">
+            <Label fx:id="fxCustomer" alignment="CENTER" prefHeight="25.0" prefWidth="240.0">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>

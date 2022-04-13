@@ -38,7 +38,7 @@ public class UserLogin extends DialogPane {
             if (b.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                 return new Pair<String, String>(fxUserId.getText(), fxPassword.getText());
             } else {
-                System.exit(0);
+                //System.exit(0);
                 return null;
             }
         });

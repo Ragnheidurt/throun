@@ -115,8 +115,8 @@ public class CustomerController {
         window.show();
 
         DayTripController dayTripController = loader.getController();
-        this.customer = null;
-        dayTripController.initData(this.customer);
+        customer = null;
+        dayTripController.initData(customer);
 
     }
 

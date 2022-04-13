@@ -51,14 +51,14 @@ public class CustomerDataConnection {
         ResultSet rs = statement.executeQuery(query);
         // If username is not valid
         if(!rs.next()) {
-            System.exit(0);
-            //return null;
+            //System.exit(0);
+            return null;
         }
         String result = rs.getString("password");
         // If password is not valid
         if(!password.equals(result)){
-            System.exit(0);
-            //return null;
+            //System.exit(0);
+            return null;
         }
         int customerId = rs.getInt("customerId");
         statement.close();
