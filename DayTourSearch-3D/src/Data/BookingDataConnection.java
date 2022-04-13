@@ -8,22 +8,17 @@ import java.io.File;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Scanner;
 
 public class BookingDataConnection {
     private static final String SQL_PATH = "DayTourSearch-3D/src/Data" + File.separator + "schema.sql";
     private static final String DB_PATH = "DayTourSearch-3D/src/Data" + File.separator + "dataBases.db";
     private Connection connection;
     private Statement statement;
-    private Scanner read;
-    private String command;
 
     public BookingDataConnection() throws Exception{
         Class.forName("org.sqlite.JDBC");
         connection = null;
         statement = null;
-        read = null;
-        command = null;
 
         try {
             File sql = new File(SQL_PATH);

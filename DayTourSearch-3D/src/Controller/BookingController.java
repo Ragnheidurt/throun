@@ -59,13 +59,11 @@ public class BookingController extends DialogPane {
         // Innihaldið sett í dialog-inn umgjörðina
         d.setDialogPane(this);
 
-        // Sett regla um hvenær í lagi hnappur er virkur
-        //iLagiRegla(lookupButton(fxILagi));
-
         // Búum til hlut af nýjum nafnlausum innri klasa sem útfærir interface
         // Callback fyrir klasana ButtonType og Vidburdur
         // Callback hefur eina aðferð og við endurforritum hana
-        d.setResultConverter(b -> {                                 // b er af taginu ButtonType
+        d.setResultConverter(b -> {
+            // b er af taginu ButtonType
             if (b.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                 Booking booking = new Booking(customer.getCustomerId(), trip.getDayTripId(), fxNumberOfGuests.getValue(),
                         trip.getTitle(), trip.getPrice()* fxNumberOfGuests.getValue(), trip.getDuration(),
@@ -80,7 +78,6 @@ public class BookingController extends DialogPane {
         // Dialog birtur og svarið fengið
         Optional<Booking> utkoma = d.showAndWait();
         return utkoma.orElse(null);
-
 
     }
 

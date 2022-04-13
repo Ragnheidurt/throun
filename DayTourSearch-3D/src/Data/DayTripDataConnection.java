@@ -10,22 +10,18 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Scanner;
 
 public class DayTripDataConnection {
     private static final String SQL_PATH = "DayTourSearch-3D/src/Data" + File.separator + "schema.sql";
     private static final String DB_PATH = "DayTourSearch-3D/src/Data" + File.separator + "dataBases.db";
     private Connection connection;
     private Statement statement;
-    private Scanner read;
-    private String command;
 
     public DayTripDataConnection() throws IOException, ClassNotFoundException{
         Class.forName("org.sqlite.JDBC");
         connection = null;
         statement = null;
-        read = null;
-        command = null;
+
 
         try {
             File sql = new File(SQL_PATH);
@@ -38,18 +34,7 @@ public class DayTripDataConnection {
             statement = connection.createStatement();
             statement.close();
             connection.close();
-            /*
-            read = new Scanner(sql);
-            read.useDelimiter(";");
 
-            while (read.hasNext()) {
-                command = read.next();
-                System.out.println(command);
-                statement.execute(command);
-            }
-            read.close();
-
-             */
 
         } catch (SQLException err) {
             System.err.println(err.getMessage());
@@ -82,10 +67,10 @@ public class DayTripDataConnection {
             price = rs.getInt("price");
             duration = rs.getInt("duration");
             date = LocalDate.parse(rs.getString("dateStart"));
-            startTime = LocalTime.now(); //Þarf að fiffa
+            startTime = LocalTime.parse(rs.getString("startTime"));
             availableSeats = rs.getInt("availableSeats");
             language = rs.getString("languageSpoken");
-            location = rs.getString("location"); //Þarf að fiffa
+            location = rs.getString("location");
             activity = rs.getString("activity");
             description = rs.getString("description");
             dateAdded = LocalDate.parse(rs.getString("dateadded"));
@@ -94,7 +79,8 @@ public class DayTripDataConnection {
             Statement stmt = connection.createStatement();
             ResultSet result = stmt.executeQuery("SELECT AVG(rating) FROM REVIEWS WHERE dayTripId = "
                             + dayTripId + ";");
-            trip.setRating(result.getDouble(1));
+            double rating = result.getDouble(1);
+            trip.setRating(rating == 0 ? -1 : rating);
             trips.add(trip);
         }
         statement.close();
@@ -127,10 +113,10 @@ public class DayTripDataConnection {
             price = rs.getInt("price");
             duration = rs.getInt("duration");
             date = LocalDate.parse(rs.getString("dateStart"));
-            startTime = LocalTime.now(); //Þarf að fiffa
+            startTime = LocalTime.parse(rs.getString("startTime"));
             availableSeats = rs.getInt("availableSeats");
             language = rs.getString("languageSpoken");
-            location = rs.getString("location"); //Þarf að fiffa
+            location = rs.getString("location");
             activity = rs.getString("activity");
             description = rs.getString("description");
             dateAdded = LocalDate.parse(rs.getString("dateadded"));
@@ -139,7 +125,8 @@ public class DayTripDataConnection {
             Statement stmt = connection.createStatement();
             ResultSet result = stmt.executeQuery("SELECT AVG(rating) FROM REVIEWS WHERE dayTripId = "
                     + dayTripId + ";");
-            trip.setRating(result.getDouble(1));
+            double rating = result.getDouble(1);
+            trip.setRating(rating == 0 ? -1 : rating);
             trips.add(trip);
         }
         statement.close();
@@ -165,7 +152,9 @@ public class DayTripDataConnection {
         int price = rs.getInt("price");
         int duration = rs.getInt("duration");
         LocalDate date = LocalDate.parse(rs.getString("dateStart"));
-        LocalTime startTime = LocalTime.now(); //Þarf að fiffa
+        //LocalTime startTime = LocalTime.now(); //Þarf að fiffa
+        //startTime = LocalTime.now(); //Þarf að fiffa
+        LocalTime startTime = LocalTime.parse(rs.getString("startTime"));
         int availableSeats = rs.getInt("availableSeats");
         String language = rs.getString("languageSpoken");
         String location = rs.getString("location"); //Þarf að fiffa

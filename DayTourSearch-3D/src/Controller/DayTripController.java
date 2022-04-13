@@ -172,20 +172,20 @@ public class DayTripController {
         }
 
         if(hasBooked){
+            // If user has a booking on this daytrip then the booking is updated
             oldBooking.setNumberOfGuests(oldBooking.getNumberOfGuests() + booking.getNumberOfGuests());
             String updateBooking = "UPDATE bookings SET numberOfGuests = " + oldBooking.getNumberOfGuests()
                     + " WHERE dayTripId = " + oldBooking.getDayTripId() + ";";
             bookingDataConn.insertBooking(updateBooking);
         }
         else{
+            // Else a new booking is created in the database
             String insertBooking = "INSERT INTO BOOKINGS VALUES(" + customer.getCustomerId() + ","
                     + trip.getDayTripId() + "," + booking.getNumberOfGuests() + ");";
             bookingDataConn.insertBooking(insertBooking);
             customer.addBooking(booking);
         }
         searchHandler(null);
-
-
     }
 
 
@@ -245,7 +245,5 @@ public class DayTripController {
     private void clearDatePickerHandler(ActionEvent event){
         fxDate.setValue(null);
     }
-
-
 
 }

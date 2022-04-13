@@ -45,8 +45,6 @@ public class GiveReview extends DialogPane {
         }
 
         // Set attributes
-        //DayTripDataConnection dayTripDataConn = new DayTripDataConnection();
-        //dayTrip = dayTripDataConn.getDayTrip(booking.getDayTripId());
         fxTitle.setText(booking.getTitle());
         fxDescription.setText(booking.getDescription());
         for(int i = 1; i<= 5; i++) fxRating.getItems().add(i*1.0);
@@ -97,9 +95,4 @@ public class GiveReview extends DialogPane {
         }
 
     }
-
-
-
-
-
 }
