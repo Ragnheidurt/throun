@@ -15,6 +15,7 @@ import java.util.Optional;
 
 public class GiveReview extends DialogPane {
 
+    // Interface attributes
     @FXML
     private Label fxTitle;
     @FXML
@@ -24,13 +25,8 @@ public class GiveReview extends DialogPane {
     @FXML
     private TextArea fxReview;
 
-    private ReviewDataConnection reviewDataConn;
-    private ObservableList<Review> reviews;
+    // Data attributes
     private Booking booking;
-    private DayTrip dayTrip;
-
-
-
 
     public GiveReview(Booking booking) throws Exception{
         this.booking = booking;
@@ -48,10 +44,12 @@ public class GiveReview extends DialogPane {
         fxTitle.setText(booking.getTitle());
         fxDescription.setText(booking.getDescription());
         for(int i = 1; i<= 5; i++) fxRating.getItems().add(i*1.0);
-        if(booking.getRating()!=-1) {
+        // If booking has a review
+        if(booking.getRating() != -1) {
             fxRating.setValue(booking.getRating());
         }
         else {
+            // Set rating has 3 by default
             fxRating.setValue(3.0);
         }
         fxReview.setText(booking.getReview());
@@ -59,22 +57,12 @@ public class GiveReview extends DialogPane {
 
 
     public void giveReview() throws Exception{
-        // Dialogurinn (umgjörðin um DialogPane) búin til
         Dialog<ButtonType> d = new Dialog<>();
-
-        // Innihaldið sett í dialog-inn umgjörðina
         d.setDialogPane(this);
-
-        // Sett regla um hvenær í lagi hnappur er virkur
-        //iLagiRegla(lookupButton(fxILagi));
-
-        // Búum til hlut af nýjum nafnlausum innri klasa sem útfærir interface
-        // Callback fyrir klasana ButtonType og Vidburdur
-        // Callback hefur eina aðferð og við endurforritum hana
         Optional<ButtonType> utkoma = d.showAndWait();
         if(utkoma.isPresent() && (utkoma.get().getButtonData() == ButtonBar.ButtonData.OK_DONE)){
-
            ReviewDataConnection reviewDataConn = new ReviewDataConnection();
+           // If booking has no review
            if(booking.getRating() == -1){
                booking.setReview(fxReview.getText());
                booking.setRating(fxRating.getValue());
@@ -90,9 +78,8 @@ public class GiveReview extends DialogPane {
                        " AND review = '" + booking.getReview() + "' WHERE dayTripId = " +
                        booking.getDayTripId() + " AND customerId = " + booking.getCustomerId() + ";");
            }
-
-
         }
 
     }
+
 }

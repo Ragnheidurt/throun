@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class DayTrip {
+
     private final int dayTripId;
     private String title;
     private int price;
@@ -33,7 +34,7 @@ public class DayTrip {
         this.activity = activity;
         this.dateAdded = dateAdded;
         this.description = description;
-        this.rating = -1.0;
+        this.rating = -1.0;   // If no reviews then rating is -1
     }
 
     public int getDayTripId() {

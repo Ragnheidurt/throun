@@ -29,7 +29,6 @@ public class DayTripInfo extends DialogPane {
     private ObservableList<Review> reviews;
 
 
-
     public DayTripInfo(DayTrip trip) throws Exception{
         // Read .fxml
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/dayTripInfoView.fxml"));

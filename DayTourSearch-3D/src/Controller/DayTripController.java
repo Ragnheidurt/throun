@@ -149,7 +149,7 @@ public class DayTripController {
 
     @FXML
     private void bookTripHandler(ActionEvent event) throws Exception {
-        // When booking a trip you already have a booking for, the new booking adds onto the old one
+        // When booking a trip you already have a booking for, the new booking adds to the old one
 
         DayTrip trip = fxTable.getSelectionModel().getSelectedItem();
         if(trip == null) return;
@@ -227,7 +227,6 @@ public class DayTripController {
 
         // Get filtered trips and add them to table
         ObservableList<DayTrip> filteredTrips = dayTripConn.filterDayTrips(query);
-        for(DayTrip trip : filteredTrips) System.out.println(trip.getTitle() + " " + trip.getRating());
         fxTable.getItems().clear();
         fxTable.setItems(filteredTrips);
         fxTable.getColumns().setAll(fxTitleCol, fxSeatsCol, fxDateCol, fxDurationCol, fxPriceCol, fxActivityCol,

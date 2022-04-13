@@ -102,20 +102,12 @@ public class DayTripDataConnection {
         statement  = connection.createStatement();
         ResultSet rs = statement.executeQuery(query);
         ObservableList<DayTrip> trips = FXCollections.observableArrayList();
-        DayTrip dayTrip;
-        int dayTripId;
-        String title;
-        int price;
-        int duration;
-        LocalDate date;
+        int dayTripId, price, duration, availableSeats;
+        String title, language, location, activity, description;
+        LocalDate date, dateAdded;
         LocalTime startTime;
-        int availableSeats;
-        String language;
-        String location;
-        String activity;
-        LocalDate dateAdded;
-        String description;
         while(rs.next()){
+            // Get day trip attributes from db
             dayTripId = rs.getInt("dayTripId");
             title = rs.getString("title");
             price = rs.getInt("price");
@@ -128,8 +120,12 @@ public class DayTripDataConnection {
             activity = rs.getString("activity");
             description = rs.getString("description");
             dateAdded = LocalDate.parse(rs.getString("dateadded"));
+
+            // Create a day trip instance with attributes from db
             DayTrip trip = new DayTrip(dayTripId, title, price, duration,date, startTime,  availableSeats,
                     language, location, activity, dateAdded, description);
+
+            // Set average rating of trip - if no reviews for this trip then the average rating is -1
             Statement stmt = connection.createStatement();
             ResultSet result = stmt.executeQuery("SELECT AVG(rating) FROM REVIEWS WHERE dayTripId = "
                     + dayTripId + ";");
@@ -137,8 +133,10 @@ public class DayTripDataConnection {
             trip.setRating(rating == 0 ? -1 : rating);
             trips.add(trip);
         }
+
         statement.close();
         connection.close();
+
         return trips;
     }
 
@@ -160,8 +158,6 @@ public class DayTripDataConnection {
         int price = rs.getInt("price");
         int duration = rs.getInt("duration");
         LocalDate date = LocalDate.parse(rs.getString("dateStart"));
-        //LocalTime startTime = LocalTime.now(); //Þarf að fiffa
-        //startTime = LocalTime.now(); //Þarf að fiffa
         LocalTime startTime = LocalTime.parse(rs.getString("startTime"));
         int availableSeats = rs.getInt("availableSeats");
         String language = rs.getString("languageSpoken");

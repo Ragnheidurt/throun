@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Booking {
+
     private final int customerId;
     private final int dayTripId;
     private int numberOfGuests;
@@ -18,7 +19,6 @@ public class Booking {
     private String activity;
     private String description;
     private String review;
-
 
 
     public Booking(int customerId, int dayTripId, int numberOfGuests, String title, int amount,
@@ -37,7 +37,7 @@ public class Booking {
         this.activity = activity;
         this.description = description;
         this.review = "";
-        this.rating = -1;
+        this.rating = -1;   // If no review then rating is -1
     }
 
     public String getReview() {

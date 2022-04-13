@@ -36,34 +36,31 @@ public class BookingController extends DialogPane {
             throw new RuntimeException(exception);
         }
 
+        // Set interface attributes
         fxTitle.setText(trip.getTitle());
         fxAvailableSeats.setText("Available seats: " + String.valueOf(trip.getAvailableSeats()));
         fxPrice.setText("Price: " + String.valueOf(trip.getPrice()) + " kr");
 
+        // Add to combobox with number of guests has many as available seats allow
         for(int i = 1; i <= trip.getAvailableSeats(); i++){
             fxNumberOfGuests.getItems().add(i);
         }
+
+        // By default 1 guest is chosen
         fxNumberOfGuests.setValue(1);
         fxAmount.setText(String.valueOf(trip.getPrice()) + " kr");
     }
 
     @FXML
     private void updateAmount(){
+        // Update amount label when number of guests is chosen
         fxAmount.setText(String.valueOf(fxNumberOfGuests.getValue()* trip.getPrice()) + " kr");
     }
 
     public Booking getBooking(){
-        // Dialogurinn (umgjörðin um DialogPane) búin til
         Dialog<Booking> d = new Dialog<>();
-
-        // Innihaldið sett í dialog-inn umgjörðina
         d.setDialogPane(this);
-
-        // Búum til hlut af nýjum nafnlausum innri klasa sem útfærir interface
-        // Callback fyrir klasana ButtonType og Vidburdur
-        // Callback hefur eina aðferð og við endurforritum hana
         d.setResultConverter(b -> {
-            // b er af taginu ButtonType
             if (b.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                 Booking booking = new Booking(customer.getCustomerId(), trip.getDayTripId(), fxNumberOfGuests.getValue(),
                         trip.getTitle(), trip.getPrice()* fxNumberOfGuests.getValue(), trip.getDuration(),
@@ -74,14 +71,8 @@ public class BookingController extends DialogPane {
                 return null;
             }
         });
-
-        // Dialog birtur og svarið fengið
         Optional<Booking> utkoma = d.showAndWait();
         return utkoma.orElse(null);
-
     }
-
-
-
 
 }

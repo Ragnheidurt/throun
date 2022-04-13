@@ -46,7 +46,7 @@ public class ChangeBooking extends DialogPane {
             throw new RuntimeException(exception);
         }
 
-        // Set attributes
+        // Set attributes of day trip to interface
         DayTripDataConnection dayTripDataConn = new DayTripDataConnection();
         dayTrip = dayTripDataConn.getDayTrip(booking.getDayTripId());
         fxTitle.setText(dayTrip.getTitle());
@@ -54,37 +54,33 @@ public class ChangeBooking extends DialogPane {
         for(int i = 1; i<= dayTrip.getAvailableSeats(); i++) fxNumberOfGuests.getItems().add(i);
         fxNumberOfGuests.setValue(booking.getNumberOfGuests());
         fxAmount.setText(String.valueOf(dayTrip.getPrice()*fxNumberOfGuests.getValue()) + " kr");
-
     }
 
     @FXML
     private void updateAmount(){
+        // Update amount label when number of guests is chosen
         fxAmount.setText(String.valueOf(fxNumberOfGuests.getValue()* dayTrip.getPrice()) + " kr");
     }
 
     public void changeBooking() throws Exception{
-        // Dialogurinn (umgjörðin um DialogPane) búin til
         Dialog<ButtonType> d = new Dialog<>();
-
-        // Innihaldið sett í dialog-inn umgjörðina
         d.setDialogPane(this);
-
-        // Sett regla um hvenær í lagi hnappur er virkur
-        //iLagiRegla(lookupButton(fxILagi));
-
-        // Búum til hlut af nýjum nafnlausum innri klasa sem útfærir interface
-        // Callback fyrir klasana ButtonType og Vidburdur
-        // Callback hefur eina aðferð og við endurforritum hana
         Optional<ButtonType> utkoma = d.showAndWait();
+
+        // If confirm button is pressed then
         if(utkoma.isPresent() && (utkoma.get().getButtonData() == ButtonBar.ButtonData.OK_DONE)){
+            // Calculate change in number of seats of this booking and old booking
             int deltaSeats = fxNumberOfGuests.getValue() - booking.getNumberOfGuests();
+
+            // Update booking and db
             booking.setNumberOfGuests(fxNumberOfGuests.getValue());
             BookingDataConnection bookingDataConn = new BookingDataConnection();
             bookingDataConn.insertBooking("UPDATE bookings SET numberOfGuests = " + booking.getNumberOfGuests() +
                     " WHERE customerId = " + booking.getCustomerId() + " AND dayTripId = " +
                     booking.getDayTripId() + ";");
-            DayTripDataConnection dayTripDataConn = new DayTripDataConnection();
 
+            // Update avaiable seats in db
+            DayTripDataConnection dayTripDataConn = new DayTripDataConnection();
             dayTripDataConn.updateTrip("UPDATE dayTrips SET availableSeats = availableSeats - " +
                     deltaSeats + " WHERE dayTripId = " + booking.getDayTripId() + ";");
         }
