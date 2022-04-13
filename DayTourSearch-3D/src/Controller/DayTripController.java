@@ -76,6 +76,7 @@ public class DayTripController {
 
 
     public void initData(Customer customer) throws Exception{
+        // Handling of the logout phase - custome is null if no one is logged in
         if(customer == null) {
             UserLogin login = new UserLogin();
             Pair<String, String> user = login.getUser();
