@@ -15,6 +15,7 @@ public class UserLogin extends DialogPane {
     private TextField fxUserId, fxPassword;
 
     public UserLogin(){
+        // Load interface of the dialog
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("userLoginView.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -26,29 +27,22 @@ public class UserLogin extends DialogPane {
 
     }
 
+    /**
+     * @return - Pair of username and password if Login button pressed,
+     *           otherwise null
+     */
     public Pair<String, String> getUser(){
-        // Dialogurinn (umgjörðin um DialogPane) búin til
         Dialog<Pair<String, String>> d = new Dialog<>();
-
-        // Innihaldið sett í dialog-inn umgjörðina
         d.setDialogPane(this);
-
-        // Búum til hlut af nýjum nafnlausum innri klasa sem útfærir interface
-        // Callback fyrir klasana ButtonType og Vidburdur
-        // Callback hefur eina aðferð og við endurforritum hana
-        d.setResultConverter(b -> {                                 // b er af taginu ButtonType
+        d.setResultConverter(b -> {
             if (b.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                 return new Pair<String, String>(fxUserId.getText(), fxPassword.getText());
             } else {
                 System.exit(0);
-                // KANNSKI SKILA GAMLA USERNUM EF VIÐ LÁTUM ÞETTA OPNAST LÍKA EF HÆGT ER AÐ SKRÁ SIG ÚT
                 return null;
             }
         });
-
-        // Dialog birtur og svarið fengið
         Optional<Pair<String, String>> utkoma = d.showAndWait();
         return utkoma.orElse(null);
-
     }
 }

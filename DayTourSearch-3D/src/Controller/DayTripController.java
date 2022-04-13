@@ -67,70 +67,50 @@ public class DayTripController {
     private ObservableList<DayTrip> dayTrips;
     private DayTripDataConnection dayTripConn;
     private CustomerDataConnection customerConn;
-    //private Customer customer;
     private BookingDataConnection bookingDataConn;
     private ObservableList<Booking> bookings;
     private BookingController bookingController;
     private Customer customer;
 
 
-
+    /**
+     * Interface initialized and day trip data added to table.
+     */
     public void initData(Customer customer) throws Exception{
-        // Handling of the logout phase - custome is null if no one is logged in
+        // Connection to db
+        dayTripConn = new DayTripDataConnection();
+        customerConn = new CustomerDataConnection();
+        bookingDataConn = new BookingDataConnection();
+
+        // Handling of the logout phase - customer is null if no one is logged in
         if(customer == null) {
             UserLogin login = new UserLogin();
             Pair<String, String> user = login.getUser();
-            CustomerDataConnection customerConnection = new CustomerDataConnection();
-            this.customer = customerConnection.getCustomer(user.getKey(), user.getValue());
-            System.out.printf(this.customer.getUsername());
+            //customerConn = new CustomerDataConnection();
+            customer = customerConn.getCustomer(user.getKey(), user.getValue());
+            this.customer = customer;
+            System.out.println(this.customer.getUsername());
+
         }
         else {
             this.customer = customer;
         }
 
-
-
-
-    /**
-     * Interface initialized and day trip data added to table.
-     */
-    //@FXML
-    //public void initialize() throws Exception{
-        // Get the user info from login system
-        // Check if the user has an account, if not then we exit
-
-        //UserLogin login = new UserLogin();
-        //Pair<String,String> user = login.getUser();
-
-
-        // FÁ TENGINGU VIÐ CUTOMERDATACONNECTION OG ATHUGA HVORT ÞESSI USER ER Í GAGNAGRUNNINUM
-        // EF SVO ER ÞÁ BÚUM VIÐ TIL USER HLUT, ANNARS HÆTTUM VIÐ
-
-        customerConn = new CustomerDataConnection();
-        //customer = customerConn.getCustomer(user.getKey(),user.getValue());
+        // See what user is logged in
         fxCustomer.setText(this.customer.getUsername());
-
-        // FÁ TENGINGU VIÐ BOOKINGDATACONNECTION OG BÆTA VIÐ FERÐUM ÞESSA CUSTOMERS
-
-        bookingDataConn = new BookingDataConnection();
-        //bookings = bookingDataConn.getBookings(customer.getCustomerId());
-        //for(Booking booking : bookings) customer.addBooking(booking);
-
 
         // Items to combobox
         fxActivity.setItems(FXCollections.observableArrayList("", "Fjallganga", "Sigling", "Skíði", "Köfun"));
         fxLocation.setItems(FXCollections.observableArrayList("", "S", "V", "N", "A"));
         fxLanguage.setItems(FXCollections.observableArrayList("", "íslenska", "enska"));
 
+        // Initialize selection of combobox values
         fxActivity.setValue("");
         fxLocation.setValue("");
         fxLanguage.setValue("");
 
-        // Get all day trips
-        dayTripConn = new DayTripDataConnection();
+        // Get all day trips and add them to table
         dayTrips = dayTripConn.getDayTrips();
-
-        // Add to table
         fxTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         fxSeatsCol.setCellValueFactory(new PropertyValueFactory<>("availableSeats"));
         fxDateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -145,28 +125,22 @@ public class DayTripController {
         fxTable.getColumns().setAll(fxTitleCol, fxSeatsCol, fxDateCol, fxDurationCol, fxPriceCol, fxActivityCol,
                                     fxLocationCol, fxLanguageCol, fxRatingCol, fxDateAddedCol);
 
-
-
-
-
     }
 
 
     @FXML
     private void tripInfoHandler(ActionEvent event) throws Exception {
-        // Get the day trip that is selected and create a new DayTripInfo object for this trip
-        DayTrip trip = fxTable.getSelectionModel().getSelectedItem();   // kannski betra að nota id???
+        // Get the day trip that is selected and open a dialog with that trip
+        DayTrip trip = fxTable.getSelectionModel().getSelectedItem();
         if(trip == null) return;
         else{
+            // Dialog opens with day trip info
             DayTripInfo info = new DayTripInfo(trip);
         }
-
-
     }
 
     @FXML
     private void bookTripHandler(ActionEvent event) throws Exception {
-        System.out.println("Book");
         DayTrip trip = fxTable.getSelectionModel().getSelectedItem();
 
         bookingController = new BookingController(trip,customer);
@@ -224,11 +198,13 @@ public class DayTripController {
 
     @FXML
     private void searchHandler(ActionEvent event) throws Exception {
+        // Get filter values
         String date = fxDate.getValue() == null ? "" : fxDate.getValue().toString();
         String activity = fxActivity.getValue();
         String location = fxLocation.getValue();
         String language = fxLanguage.getValue();
 
+        // Construct query from values
         String query = "SELECT * FROM DAYTRIPS WHERE dateStart ";
         query += date.equals("") ? "Like '%'" : ("= '" + date + "'");
         query += " AND activity ";
@@ -239,6 +215,7 @@ public class DayTripController {
         query += language.equals("") ? "Like '%'" : ("= '" + language + "'");
         query += ";";
 
+        // Get filtered trips and add them to table
         ObservableList<DayTrip> filteredTrips = dayTripConn.filterDayTrips(query);
         for(DayTrip trip : filteredTrips) System.out.println(trip.getTitle() + " " + trip.getRating());
         fxTable.getItems().clear();

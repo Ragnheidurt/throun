@@ -38,24 +38,32 @@ public class CustomerDataConnection {
         connection.close();
     }
 
+    /**
+     * @param username
+     * @param password
+     * @return - Customer in db if both username and password are a match, otherwise null
+     * @throws Exception
+     */
     public Customer getCustomer(String username, String password) throws Exception{
         connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
         statement = connection.createStatement();
         String query = "SELECT * FROM CUSTOMERS WHERE username = '" + username + "';";
         ResultSet rs = statement.executeQuery(query);
+        // If username is not valid
         if(!rs.next()) {
             System.exit(0);
+            //return null;
         }
         String result = rs.getString("password");
-        if(!password.equals(result)) System.exit(0); //Fiffa
-
+        // If password is not valid
+        if(!password.equals(result)){
+            System.exit(0);
+            //return null;
+        }
         int customerId = rs.getInt("customerId");
         statement.close();
         connection.close();
         return new Customer(customerId,password,username);
     }
 
-    public static void main(String[] args) {
-
-    }
 }

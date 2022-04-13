@@ -15,7 +15,7 @@
             <children>
                 <HBox prefHeight="14.0" prefWidth="1324.0">
                     <children>
-                        <Label prefHeight="17.0" prefWidth="73.0" text="User Id:">
+                        <Label prefHeight="17.0" prefWidth="73.0" text="Username:">
                             <HBox.margin>
                                 <Insets right="5.0" />
                             </HBox.margin>

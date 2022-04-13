@@ -13,15 +13,28 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+
 public class Main extends Application {
+
+    private Customer customer;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         // Get the user
         UserLogin login = new UserLogin();
         Pair<String, String> user = login.getUser();
-        CustomerDataConnection customerConnection = new CustomerDataConnection();
-        Customer customer = customerConnection.getCustomer(user.getKey(), user.getValue());
+        // If pressed cancel or invalid user, then login system reappears
+        //if(user != null){
+            CustomerDataConnection customerConnection = new CustomerDataConnection();
+            customer = customerConnection.getCustomer(user.getKey(), user.getValue());
+          //  if(customer == null){
+                //start(primaryStage);
+          //  }
+        //}
+        //else{
+            //start(primaryStage);
+        //}
+
 
         // Load and show the interface of the search engine
         FXMLLoader loader = new FXMLLoader(getClass().getResource("dayTripSearchView.fxml"));
