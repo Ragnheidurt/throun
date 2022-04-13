@@ -1,6 +1,5 @@
 package View;
 
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -33,9 +32,6 @@ public class UserLogin extends DialogPane {
 
         // Innihaldið sett í dialog-inn umgjörðina
         d.setDialogPane(this);
-
-        // Sett regla um hvenær í lagi hnappur er virkur
-        //iLagiRegla(lookupButton(fxILagi));
 
         // Búum til hlut af nýjum nafnlausum innri klasa sem útfærir interface
         // Callback fyrir klasana ButtonType og Vidburdur

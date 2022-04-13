@@ -162,12 +162,6 @@ public class DayTripController {
         }
 
 
-
-
-
-        // KANNSKI BETRA AÐ HAFA DIALOG HELDUR EN ALVEG NÝJA SENU??
-        // ÞURFUM AMK AÐ GETA KOMIST TIL BAKA AFTUR Í DAYTRIPSEARCHVIEW.FXML
-
     }
 
     @FXML

@@ -14,6 +14,7 @@ import java.io.IOException;
 
 public class DayTripInfo extends DialogPane {
 
+    // Interface attributes
     @FXML
     private Label fxTitle;
     @FXML
@@ -22,6 +23,8 @@ public class DayTripInfo extends DialogPane {
     private ListView fxListReview;
     @FXML
     private Label fxAverageRating;
+
+    // Data attributes
     private ReviewDataConnection reviewDataConn;
     private ObservableList<Review> reviews;
 
@@ -37,42 +40,28 @@ public class DayTripInfo extends DialogPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        //
+
+        // Set attributes of this trip
+        fxTitle.setText(trip.getTitle());
+        fxDescription.setText(trip.getDescription());
+
+        // Set reviews of this trip
         reviewDataConn = new ReviewDataConnection();
         reviews = reviewDataConn.getReviews(trip.getDayTripId());
         for(Review review : reviews){
             fxListReview.getItems().add(review.getRating() + "*. " + review.getReview());
         }
-        fxAverageRating.setText(String.valueOf(trip.getRating()));
+        fxAverageRating.setText("Rating: " + String.valueOf(trip.getRating()));
 
-
-        // Dialogurinn (umgjörðin um DialogPane) búin til
+        // Dialog created and showed
         Dialog<DayTrip> d = new Dialog<>();
-        // Innihaldið sett í dialog-inn umgjörðina
         d.setDialogPane(this);
-        // Ósýnilegur takki
+        // Invisible button
         d.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
         Node closeButton = d.getDialogPane().lookupButton(ButtonType.CLOSE);
         closeButton.managedProperty().bind(closeButton.visibleProperty());
         closeButton.setVisible(false);
-        // Dialog birtur og svarið fengið
         d.show();
-
-
-        // Set attributes
-        fxTitle.setText(trip.getTitle());
-        fxDescription.setText(trip.getDescription());
-
-
-
-
-
-
-
     }
-
-
-
-
 
 }
