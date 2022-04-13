@@ -76,6 +76,7 @@ public class DayTripController {
 
 
     public void initData(Customer customer) throws Exception{
+        // Handling of the logout phase - custome is null if no one is logged in
         if(customer == null) {
             UserLogin login = new UserLogin();
             Pair<String, String> user = login.getUser();
@@ -160,12 +161,6 @@ public class DayTripController {
             DayTripInfo info = new DayTripInfo(trip);
         }
 
-
-
-
-
-        // KANNSKI BETRA AÐ HAFA DIALOG HELDUR EN ALVEG NÝJA SENU??
-        // ÞURFUM AMK AÐ GETA KOMIST TIL BAKA AFTUR Í DAYTRIPSEARCHVIEW.FXML
 
     }
 
