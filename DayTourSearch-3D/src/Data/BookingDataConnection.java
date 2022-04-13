@@ -51,8 +51,8 @@ public class BookingDataConnection {
         ResultSet dayTripQuery;
         ResultSet reviewQuery;
         while (rs.next()){
+            // Get booking attributes from db
             dayTripId = rs.getInt("dayTripId");
-
             numberOfGuests = rs.getInt("numberOfGuests");
             dayTripQuery = statement2.executeQuery("SELECT * FROM daytrips WHERE dayTripId = " + dayTripId + ";");
             title = dayTripQuery.getString("title");
@@ -64,12 +64,14 @@ public class BookingDataConnection {
             language = dayTripQuery.getString("languageSpoken");
             location = dayTripQuery.getString("location");
             activity = dayTripQuery.getString("activity");
-            reviewQuery = statement3.executeQuery("SELECT * FROM reviews WHERE customerId = " + customerId +
-                    " AND dayTripId = " + dayTripId + ";");
 
+            // Create a booking instance with attributes from db
             Booking booking = new Booking(customerId,dayTripId,numberOfGuests,title,amount,
                     duration,date,startTime,language,location,activity,description);
 
+            // If booking has a review then set it to booking instance
+            reviewQuery = statement3.executeQuery("SELECT * FROM reviews WHERE customerId = " + customerId +
+                    " AND dayTripId = " + dayTripId + ";");
             if(reviewQuery.next()) {
                 myRating = reviewQuery.getInt("rating");
                 myReview = reviewQuery.getString("review");
@@ -79,10 +81,12 @@ public class BookingDataConnection {
 
             bookings.add(booking);
         }
+
         statement.close();
         statement2.close();
         statement3.close();
         connection.close();
+
         return bookings;
     }
 

@@ -152,6 +152,7 @@ public class DayTripController {
         // When booking a trip you already have a booking for, the new booking adds onto the old one
 
         DayTrip trip = fxTable.getSelectionModel().getSelectedItem();
+        if(trip == null) return;
 
         bookingController = new BookingController(trip,customer);
         Booking booking = bookingController.getBooking();

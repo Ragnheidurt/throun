@@ -80,8 +80,6 @@ public class CustomerController {
 
     }
 
-
-
     @FXML
     private void backButtonHandler(ActionEvent event) throws Exception{
         FXMLLoader loader = new FXMLLoader();
@@ -115,6 +113,7 @@ public class CustomerController {
         Booking booking = fxTable.getSelectionModel().getSelectedItem();
         if(booking == null) return;
         else{
+            // Remove from customer booking list and booking db
             customer.removeBooking(booking);
             BookingDataConnection bookingDataConn = new BookingDataConnection();
             String removeBooking = "DELETE FROM BOOKINGS WHERE dayTripId = " + booking.getDayTripId() +
@@ -124,35 +123,46 @@ public class CustomerController {
             String removeReview = "DELETE FROM reviews WHERE dayTripId = " + booking.getDayTripId() +
                     " AND customerId = " + customer.getCustomerId() + ";";
             reviewDataConn.updateReviews(removeReview);
+
+            // Update day trips db
             DayTripDataConnection dayTripDataConn = new DayTripDataConnection();
             String addTrips = "UPDATE dayTrips SET availableSeats = availableSeats + " + booking.getNumberOfGuests()
                     + " WHERE dayTripId = " + booking.getDayTripId() + ";";
             dayTripDataConn.updateTrip(addTrips);
+
+            // Show updated bookings in table
             fxTable.getItems().clear();
-            ObservableList<Booking> b = FXCollections.observableArrayList(customer.getBookings());
-            fxTable.setItems(b);
+            ObservableList<Booking> bookings = FXCollections.observableArrayList(customer.getBookings());
+            fxTable.setItems(bookings);
         }
 
     }
 
     @FXML
     private void changeBookingHandler() throws Exception{
+        // Change booking dialog displayed
         Booking booking = fxTable.getSelectionModel().getSelectedItem();
-        ChangeBooking changeBooking = new ChangeBooking(booking);
-        changeBooking.changeBooking();
-        fxTable.getItems().clear();
-        ObservableList<Booking> bookings = FXCollections.observableArrayList(customer.getBookings());
-        fxTable.setItems(bookings);
+        if(booking == null) return;
+        else {
+            ChangeBooking changeBooking = new ChangeBooking(booking);
+            changeBooking.changeBooking();
+
+            // Show updated bookings in table
+            fxTable.getItems().clear();
+            ObservableList<Booking> bookings = FXCollections.observableArrayList(customer.getBookings());
+            fxTable.setItems(bookings);
+        }
     }
 
     @FXML
     private void giveReviewHandler() throws Exception{
+        // Review dialog displayed
         Booking booking = fxTable.getSelectionModel().getSelectedItem();
-        GiveReview giveReview = new GiveReview(booking);
-        giveReview.giveReview();
-        fxTable.getItems().clear();
-        ObservableList<Booking> b = FXCollections.observableArrayList(customer.getBookings());
-        fxTable.setItems(b);
+        if(booking == null) return;
+        else {
+            GiveReview giveReview = new GiveReview(booking);
+            giveReview.giveReview();
+        }
     }
 
 
