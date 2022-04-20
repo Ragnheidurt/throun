@@ -1,4 +1,4 @@
-package View;
+package Controller;
 
 import Data.BookingDataConnection;
 import Data.DayTripDataConnection;
@@ -75,13 +75,13 @@ public class ChangeBooking extends DialogPane {
             // Update booking and db
             booking.setNumberOfGuests(fxNumberOfGuests.getValue());
             BookingDataConnection bookingDataConn = new BookingDataConnection();
-            bookingDataConn.insertBooking("UPDATE bookings SET numberOfGuests = " + booking.getNumberOfGuests() +
+            bookingDataConn.updateBooking("UPDATE bookings SET numberOfGuests = " + booking.getNumberOfGuests() +
                     " WHERE customerId = " + booking.getCustomerId() + " AND dayTripId = " +
                     booking.getDayTripId() + ";");
 
             // Update avaiable seats in db
             DayTripDataConnection dayTripDataConn = new DayTripDataConnection();
-            dayTripDataConn.updateTrip("UPDATE dayTrips SET availableSeats = availableSeats - " +
+            dayTripDataConn.updateDayTrip("UPDATE dayTrips SET availableSeats = availableSeats - " +
                     deltaSeats + " WHERE dayTripId = " + booking.getDayTripId() + ";");
         }
 

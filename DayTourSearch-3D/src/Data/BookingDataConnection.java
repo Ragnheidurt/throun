@@ -90,7 +90,7 @@ public class BookingDataConnection {
         return bookings;
     }
 
-    public void insertBooking(String insert) throws Exception{
+    public void updateBooking(String insert) throws Exception{
         connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
         statement = connection.createStatement();
         statement.executeUpdate(insert);

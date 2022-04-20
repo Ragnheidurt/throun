@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.util.Optional;
 
-public class BookingController extends DialogPane {
+public class BookDayTrip extends DialogPane {
 
     // Interface attributes
     @FXML
@@ -22,7 +22,7 @@ public class BookingController extends DialogPane {
     private DayTrip trip;
     private Customer customer;
 
-    public BookingController(DayTrip trip, Customer customer){
+    public BookDayTrip(DayTrip trip, Customer customer){
         this.trip = trip;
         this.customer = customer;
 

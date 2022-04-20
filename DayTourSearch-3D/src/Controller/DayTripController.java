@@ -6,8 +6,6 @@ import Data.DayTripDataConnection;
 import Model.Booking;
 import Model.Customer;
 import Model.DayTrip;
-import View.DayTripInfo;
-import View.UserLogin;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -68,8 +66,7 @@ public class DayTripController {
     private DayTripDataConnection dayTripConn;
     private CustomerDataConnection customerConn;
     private BookingDataConnection bookingDataConn;
-    private ObservableList<Booking> bookings;
-    private BookingController bookingController;
+    private BookDayTrip bookDayTrip;
     private Customer customer;
 
 
@@ -154,14 +151,14 @@ public class DayTripController {
         DayTrip trip = fxTable.getSelectionModel().getSelectedItem();
         if(trip == null) return;
 
-        bookingController = new BookingController(trip,customer);
-        Booking booking = bookingController.getBooking();
+        bookDayTrip = new BookDayTrip(trip,customer);
+        Booking booking = bookDayTrip.getBooking();
         if(booking == null) return;
 
         // Update available seats for this trip
         String update = "UPDATE dayTrips SET availableSeats = availableSeats - " + booking.getNumberOfGuests()
             + " WHERE dayTripId = " + trip.getDayTripId() + ";";
-        dayTripConn.updateTrip(update);
+        dayTripConn.updateDayTrip(update);
 
         Boolean hasBooked = false;
         Booking oldBooking = new Booking(0,0,0,"",0,0, LocalDate.now(), LocalTime.now(),"","","","");
@@ -177,13 +174,13 @@ public class DayTripController {
             oldBooking.setNumberOfGuests(oldBooking.getNumberOfGuests() + booking.getNumberOfGuests());
             String updateBooking = "UPDATE bookings SET numberOfGuests = " + oldBooking.getNumberOfGuests()
                     + " WHERE dayTripId = " + oldBooking.getDayTripId() + ";";
-            bookingDataConn.insertBooking(updateBooking);
+            bookingDataConn.updateBooking(updateBooking);
         }
         else{
             // Else a new booking is created in the database
             String insertBooking = "INSERT INTO BOOKINGS VALUES(" + customer.getCustomerId() + ","
                     + trip.getDayTripId() + "," + booking.getNumberOfGuests() + ");";
-            bookingDataConn.insertBooking(insertBooking);
+            bookingDataConn.updateBooking(insertBooking);
             customer.addBooking(booking);
         }
         searchHandler(null);

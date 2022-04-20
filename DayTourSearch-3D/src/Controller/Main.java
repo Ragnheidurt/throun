@@ -1,5 +1,6 @@
-package View;
+package Controller;
 
+import Controller.UserLogin;
 import Data.BookingDataConnection;
 import Data.CustomerDataConnection;
 import Controller.DayTripController;
@@ -38,7 +39,7 @@ public class Main extends Application {
         }
 
         // Load and show the interface of the search engine
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("dayTripSearchView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/dayTripSearchView.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("Day Tour Search");
         primaryStage.setScene(new Scene(root));

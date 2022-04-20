@@ -1,4 +1,4 @@
-package View;
+package Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +16,7 @@ public class UserLogin extends DialogPane {
 
     public UserLogin(){
         // Load interface of the dialog
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("userLoginView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/userLoginView.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {

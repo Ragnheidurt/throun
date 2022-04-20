@@ -138,7 +138,7 @@ public class DayTripDataConnection {
         return trips;
     }
 
-    public void updateTrip(String update) throws Exception{
+    public void updateDayTrip(String update) throws Exception{
         connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
         statement  = connection.createStatement();
         statement.executeUpdate(update);

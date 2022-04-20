@@ -5,8 +5,6 @@ import Data.DayTripDataConnection;
 import Data.ReviewDataConnection;
 import Model.Booking;
 import Model.Customer;
-import View.ChangeBooking;
-import View.GiveReview;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,8 +18,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 public class CustomerController {
 
@@ -118,7 +114,7 @@ public class CustomerController {
             BookingDataConnection bookingDataConn = new BookingDataConnection();
             String removeBooking = "DELETE FROM BOOKINGS WHERE dayTripId = " + booking.getDayTripId() +
                     " AND customerId = " + customer.getCustomerId() + ";";
-            bookingDataConn.insertBooking(removeBooking);
+            bookingDataConn.updateBooking(removeBooking);
             ReviewDataConnection reviewDataConn = new ReviewDataConnection();
             String removeReview = "DELETE FROM reviews WHERE dayTripId = " + booking.getDayTripId() +
                     " AND customerId = " + customer.getCustomerId() + ";";
@@ -128,7 +124,7 @@ public class CustomerController {
             DayTripDataConnection dayTripDataConn = new DayTripDataConnection();
             String addTrips = "UPDATE dayTrips SET availableSeats = availableSeats + " + booking.getNumberOfGuests()
                     + " WHERE dayTripId = " + booking.getDayTripId() + ";";
-            dayTripDataConn.updateTrip(addTrips);
+            dayTripDataConn.updateDayTrip(addTrips);
 
             // Show updated bookings in table
             fxTable.getItems().clear();

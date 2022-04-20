@@ -1,4 +1,4 @@
-package View;
+package Controller;
 
 import Data.ReviewDataConnection;
 import Model.Booking;

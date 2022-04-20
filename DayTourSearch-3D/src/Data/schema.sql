@@ -17,8 +17,8 @@ CREATE TABLE DAYTRIPS (
 CREATE TABLE CUSTOMERS (
     customerId INT NOT NULL,
     password VARCHAR(32) NOT NULL,
-    username VARCHAR(32),
-    PRIMARY KEY(customerId, password)
+    username VARCHAR(32) NOT NULL,
+    PRIMARY KEY(customerId)
 );
 
 CREATE TABLE BOOKINGS (
